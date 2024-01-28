@@ -1,0 +1,45 @@
+/* Navbar.css */
+.Navbar {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #333;
+  padding: 10px;
+  color: #ff1717;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.Navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+/* Dropdown styles */
+.Dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.DropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.Dropdown:hover .DropdownContent {
+  display: block;
+}
+
+.DropdownContent a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.DropdownContent a:hover {
+  background-color: #555;
+}
