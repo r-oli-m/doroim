@@ -1,40 +1,39 @@
 .home {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .table-container {
-    background: url('/home/reva/doroim/public/table.png') left bottom no-repeat;
-    text-align: center;
-    padding: 20px;
-    /* Adjust padding as needed */
+  text-align: center;
+  padding: 20px;
+  /* Adjust padding as needed */
 }
 
 .box,
 .checklist {
-    display: inline-block;
-    position: relative;
-    perspective: 1000px;
-    margin: 10px;
-    /* Adjust margin as needed */
+  display: inline-block;
+  position: relative;
+  perspective: 1000px;
+  margin: 10px;
+  /* Adjust margin as needed */
 }
 
 .box-image,
 .checklist-image {
-    width: 200px;
-    height: auto;
-    transition: transform 0.3s ease-in;
+  width: 200px;
+  height: auto;
+  transition: transform 0.3s ease-in;
 }
 
 .box:hover .box-image {
-    transform: translateY(-40px);
+  transform: translateY(-40px);
 }
 
 .checklist-image {
-    transform: rotate3d(1, 0.7, -1.4, 90deg) scale(0.7);
-    transition: transform 0.7s ease-in-out;
+  transform: rotate3d(1, 0.7, -1.4, 90deg) scale(0.7);
+  transition: transform 0.7s ease-in-out;
 }
 
 .checklist:hover .checklist-image {
-    transform: rotate3d(1, 0, 0, 0deg) scale(1.2);
+  transform: rotate3d(1, 0, 0, 0deg) scale(1.2);
 }
