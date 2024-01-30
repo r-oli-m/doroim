@@ -6,7 +6,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  background-image: url('/Users/reva/Desktop/doroim/public/dotted-line.png');
+  background-image: url('/public/dotted-line.png');
   background-repeat: no-repeat;
   background-position: -1.5cm 0; /* Adjusted background position */
 }
