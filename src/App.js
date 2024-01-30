@@ -11,11 +11,13 @@ import Login from "./Login";
 import Register from "./Register";
 import GoogleLogin from "./GoogleLogin";
 import AuthSection from "./AuthSection";
+import LoginSignUp from "./LoginSignUp";
 
 const App = () => {
   return (
     <div>
       <Navbar />
+      <LoginSignUp />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/checklist" element={<Checklist />} />
