@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+import AuthSection from './AuthSection';
 
 const Navbar = () => {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
   return (
     <div className="Navbar">
-      <div className="Dropdown">
-        <Link to="/">Home</Link>
-        <div className="DropdownContent">
-          <Link to="/inventory">Inventory</Link>
-          <Link to="/checklist">Checklist</Link>
+      {/* Your existing code */}
+      <button onClick={openPopup}>Login</button>
+
+      {isPopupOpen && (
+        <div className="PopupBackground">
+          <AuthSection closePopup={closePopup} />
         </div>
-      </div>
-      <Link to="/contact">Contact</Link>
-      <Link to="/about">About</Link>
+      )}
     </div>
   );
 };
