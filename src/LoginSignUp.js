@@ -15,7 +15,7 @@ import {
     sendPasswordResetEmail,
 } from "firebase/auth"; // Assuming firebase.js exports auth
 
-const LoginSignUp = ({closePopup}) => {
+const LoginSignUp = ({ closePopup }) => {
     const [showLoginSignUp, setShowLoginSignUp] = useState(true);
     const [action, setAction] = useState("Sign Up");
     const [email, setEmail] = useState("");
@@ -60,7 +60,7 @@ const LoginSignUp = ({closePopup}) => {
             setShowForgotPassword(false);
         } catch (error) {
             console.error("Reset password error:", error.message);
-            setResetPasswordError(error.message);
+            setResetPasswordError("Reset password error:", error.message);
         }
     };
 
@@ -82,7 +82,7 @@ const LoginSignUp = ({closePopup}) => {
     const handleClose = () => {
         // Call the closePopup function received as a prop
         closePopup();
-      };
+    };
 
     return (
         <div className="container">
@@ -131,7 +131,7 @@ const LoginSignUp = ({closePopup}) => {
                     />
                 </div>
             </div>
-            {action === "Sign Up" ? (
+            {action === "Login" ? (
                 <div className="forgot-password" onClick={() => setShowForgotPassword(true)}>
                     Forgot Password? <span> Click Here!</span>
                 </div>
@@ -157,7 +157,6 @@ const LoginSignUp = ({closePopup}) => {
             <div className="google-login">
                 <GoogleLogin />
             </div>
-
             {showForgotPassword && (
                 <div className="overlay">
                     <div className="popup">

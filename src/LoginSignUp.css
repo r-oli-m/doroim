@@ -3,14 +3,15 @@
 .container {
     display: flex;
     flex-direction: column;
-    background: rgb(156, 170, 245);
-    height: 70vh;
-    width: 70vw;
-    border-radius: 75px;
+    background: #f1f1f1;
+    border-radius: 15px; /* Adjusted for a more subtle curve */
     margin: auto;
-    padding: 20px;
+    padding: 10px;
     position: relative;
-    /* Added for positioning the close button */
+    width: min-content;
+    height: min-content;
+    align-content: center;
+    padding: 0px 20px 0px 20px;
 }
 
 .close-container {
@@ -23,7 +24,6 @@
     font-size: 1.5rem;
     color: #6a1bb4;
     cursor: pointer;
-    /* Adjust color for better visibility */
 }
 
 .header {
@@ -32,20 +32,20 @@
     align-items: center;
     gap: 9px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .text {
-    color: rgb(62, 48, 194);
+    color: #333;
     font-size: 2.5rem;
     font-weight: 700;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Helvetica', sans-serif;
 }
 
 .underline {
-    width: 61px;
+    width: 70px;
     height: 6px;
-    background-color: purple;
+    background-color: #4c00b4;
     border-radius: 9px;
 }
 
@@ -75,17 +75,17 @@
     height: 40px;
     padding: 5px;
     background: transparent;
-    border: 1px solid #ccc;
-    /* Add border for clarity */
+    border: 1px solid #aaa;
     border-radius: 4px;
     outline: none;
     color: brown;
     font-size: 1rem;
-    transition: border 0.3s ease-in-out;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .input input:focus {
-    border-color: purple;
+    border-color: #4c00b4;
+    box-shadow: 0 0 5px rgba(76, 0, 180, 0.3);
 }
 
 .forgot-password {
@@ -104,37 +104,38 @@
 .success-message {
     margin-top: 1rem;
     color: red;
-    /* Adjust color for better visibility */
 }
 
 .submit-container {
     display: flex;
     gap: 30px;
-    margin: 2.5rem auto;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+
 }
 
 .submit {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 220px;
+    width: 180px;
     height: 59px;
     color: white;
-    background: #4c00b4;
-    border-radius: 50px;
+    background: #190130;
+    border-radius: 60px;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: background 0.5s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .submit:hover {
     background: #6a1bb4;
+    color: white;
+    transform: scale(1.05);
 }
 
 .gray {
-    background: rgb(218, 217, 217);
+    background: #dad9d9;
     color: #4c00b4;
 }
 
@@ -144,24 +145,26 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black overlay */
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* Ensure the overlay appears above other content */
 }
 
 .popup {
     position: relative;
-    /* Added to make position absolute relative to this element */
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     text-align: center;
     max-width: 400px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.popup:hover {
+    transform: scale(1.02);
 }
 
 .popup h2 {
@@ -183,15 +186,25 @@
 }
 
 .popup button {
-    background: #4c00b4;
+    background: #6a1bb4;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease-in-out;
 }
 
 .popup button:hover {
-    background: #6a1bb4;
+    background: #4c00b4;
 }
 
+.google-login {
+    display: flex;
+    justify-content: center;
+    
+}
+.google-login img {
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* This will maintain the aspect ratio */
+}
