@@ -9,7 +9,7 @@ const GoogleLogin = () => {
     try {
       // Sign in with Google
       const result = await signInWithPopup(auth, googleProvider);
-      
+
       // Access user information
       const user = result.user;
       console.log("Google user logged in:", user);
@@ -23,10 +23,12 @@ const GoogleLogin = () => {
 
   return (
     <div className="google-login">
-      <h2>Google Login</h2>
-      <img src = "/google-logo.png" alt = "Google Logo" />
-      <button onClick={handleGoogleLogin}>Sign in with Google</button>
-    </div>
+      <img
+        onClick={handleGoogleLogin}
+        src="/google-logo.png"
+        alt="Google Logo"
+      />
+    </div >
   );
 };
 

@@ -202,9 +202,20 @@
 .google-login {
     display: flex;
     justify-content: center;
+    padding: 10px;
     
 }
 .google-login img {
-    width: 50px; /* Adjust the width as needed */
-    height: auto; /* This will maintain the aspect ratio */
+    width: 10%;
+    height: 60%;
+    border: #190130 0.5px solid;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+}
+
+.google-login img:active {
+    /* Define the styles for the active state */
+    background-color: #e0e0e0;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a box shadow for the click effect */
 }
