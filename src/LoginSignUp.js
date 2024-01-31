@@ -5,6 +5,7 @@ import password_icon from "./assets/password.png";
 import GoogleLogin from "./GoogleLogin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Navbar";
 import {
     auth
 } from "./firebase";
@@ -14,7 +15,8 @@ import {
     sendPasswordResetEmail,
 } from "firebase/auth"; // Assuming firebase.js exports auth
 
-const LoginSignUp = () => {
+const LoginSignUp = ({closePopup}) => {
+    const [showLoginSignUp, setShowLoginSignUp] = useState(true);
     const [action, setAction] = useState("Sign Up");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -77,8 +79,18 @@ const LoginSignUp = () => {
         setResetPasswordSuccess(null);
     };
 
+    const handleClose = () => {
+        // Call the closePopup function received as a prop
+        closePopup();
+      };
+
     return (
         <div className="container">
+            <div className="close-container">
+                <span className="close" onClick={handleClose}>
+                    &times;
+                </span>
+            </div>
             <div className="header">
                 <div className="text">{action}</div>
                 <div className="underline"></div>

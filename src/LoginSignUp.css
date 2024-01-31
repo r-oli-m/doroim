@@ -1,9 +1,29 @@
+/* Reset or Normalize CSS - Add if necessary */
+
 .container {
     display: flex;
     flex-direction: column;
     background: rgb(156, 170, 245);
-    height: 700px;
-    width: fit-content;
+    height: 70vh;
+    width: 70vw;
+    border-radius: 75px;
+    margin: auto;
+    padding: 20px;
+    position: relative;
+    /* Added for positioning the close button */
+}
+
+.close-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close {
+    font-size: 1.5rem;
+    color: #6a1bb4;
+    cursor: pointer;
+    /* Adjust color for better visibility */
 }
 
 .header {
@@ -17,20 +37,20 @@
 
 .text {
     color: rgb(62, 48, 194);
-    font-size: 48px;
+    font-size: 2.5rem;
     font-weight: 700;
     font-family: Helvetica, sans-serif;
 }
 
 .underline {
-    width: 61px; /* Corrected width */
+    width: 61px;
     height: 6px;
     background-color: purple;
     border-radius: 9px;
 }
 
 .three-inputs {
-    margin-top: 55px;
+    margin-top: 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -40,30 +60,39 @@
     display: flex;
     align-items: center;
     margin: auto;
-    width: 380px;
+    width: 100%;
+    max-width: 380px;
     height: 40px;
     border-radius: 6px;
 }
 
 .input img {
-    margin: 0px 30px;
+    margin: 0px 15px;
 }
 
 .input input {
-    height: 50px;
-    width: 100%; /* Set to 100% for responsiveness */
+    flex: 1;
+    height: 40px;
+    padding: 5px;
     background: transparent;
-    border: none;
+    border: 1px solid #ccc;
+    /* Add border for clarity */
+    border-radius: 4px;
     outline: none;
     color: brown;
-    font-size: 19px;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out;
+}
+
+.input input:focus {
+    border-color: purple;
 }
 
 .forgot-password {
-    padding-left: 62px;
-    margin-top: 27px;
+    padding-left: 1.5rem;
+    margin-top: 1.5rem;
     color: brown;
-    font-size: 18px;
+    font-size: 1rem;
 }
 
 .forgot-password span {
@@ -71,10 +100,17 @@
     cursor: pointer;
 }
 
+.error-message,
+.success-message {
+    margin-top: 1rem;
+    color: red;
+    /* Adjust color for better visibility */
+}
+
 .submit-container {
     display: flex;
     gap: 30px;
-    margin: 60px auto;
+    margin: 2.5rem auto;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -87,12 +123,75 @@
     color: white;
     background: #4c00b4;
     border-radius: 50px;
-    font-size: 19px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.submit:hover {
+    background: #6a1bb4;
 }
 
 .gray {
     background: rgb(218, 217, 217);
     color: #4c00b4;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure the overlay appears above other content */
+}
+
+.popup {
+    position: relative;
+    /* Added to make position absolute relative to this element */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+}
+
+.popup h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.popup p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.popup input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup button {
+    background: #4c00b4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background: #6a1bb4;
+}
+
