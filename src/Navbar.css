@@ -56,18 +56,6 @@
   z-index: 1000;
 }
 
-.auth-section {
-  text-align: center;
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.auth-buttons {
-  margin-bottom: 20px;
-}
-
 .close-button {
   background-color: #ccc;
   border: none;

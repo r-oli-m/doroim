@@ -7,26 +7,24 @@ import Navbar from "./Navbar";
 //sub pages:
 import Checklist from "./SubPages/Checklist";
 import Inventory from "./SubPages/Inventory";
-import Login from "./Login";
-import Register from "./Register";
 import GoogleLogin from "./GoogleLogin";
-import AuthSection from "./AuthSection";
 import LoginSignUp from "./LoginSignUp";
+import ResetPassword from "./ResetPassword"; // Adjust the path based on your file structure
+
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      <LoginSignUp />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/checklist" element={<Checklist />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} /> {/* Closing parenthesis added here */}
-        <Route exact path="/login" element={<Login />} />
-        <Route path="/google-login" element={<GoogleLogin />} />
-        <Route exact path="/register" element={<Register />} />
+      <Route path="/" element={<Home />} />
+          <Route path="/checklist" element={<Checklist />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/google-login" element={<GoogleLogin />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/auth" element={<LoginSignUp />} />
       </Routes>
     </div>
   );

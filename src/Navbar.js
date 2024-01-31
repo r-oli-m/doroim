@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import AuthSection from './AuthSection';
+import LoginSignUp from './LoginSignUp';
 
 const Navbar = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
 
       {isPopupOpen && (
         <div className="PopupBackground">
-          <AuthSection closePopup={closePopup} />
+          <LoginSignUp closePopup={closePopup} />
         </div>
       )}
     </div>
