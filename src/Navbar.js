@@ -1,22 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import doroLogo from "./doro_logo.png";
+function Navbar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
-const Navbar = () => {
   return (
     <div className="Navbar">
-      <div className="Dropdown">
-        <Link to="/">Home</Link>
-        <div className="DropdownContent">
-          <Link to="/inventory">Inventory</Link>
-          <Link to="/checklist">Checklist</Link>
+      <div className="title">
+        <img src={doroLogo} width="350vh" alt="Logo" />
+      </div>
+
+      <div className="right">
+        <div>
+          <div
+            className="Dropdown"
+            onMouseEnter={handleDropdownToggle}
+            onMouseLeave={handleDropdownToggle}
+          >
+            <div className="link">
+              <Link to="/">home</Link>
+            </div>
+            {isDropdownOpen && (
+              <div className="DropdownContent">
+                <div className="link">
+                  <Link to="/inventory">inventory</Link>
+                </div>
+                <div className="link">
+                  <Link to="/checklist">checklist</Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="link">
+          <Link to="/contact">contact</Link>
+        </div>
+
+        <div className="link">
+          <Link to="/about">about</Link>
         </div>
       </div>
-      <Link to="/contact">Contact</Link>
-      <Link to="/about">About</Link>
     </div>
   );
-};
+}
 
 export default Navbar;
