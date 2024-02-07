@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import LoginSignUp from './LoginSignUp';
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null); // Initialize userProfile state
+
+  useEffect(() => {
+    // Set userProfile state when user prop changes
+    setUserProfile(user);
+  }, [user]);
 
   const openPopup = () => {
     setPopupOpen(true);
@@ -21,18 +26,19 @@ const Navbar = () => {
       displayName: user.displayName,
       email: user.email
     });
+    console.log('User logged in!', user);
     // Close the popup
     closePopup();
   };
 
   const handleLogout = () => {
-    // Clear userProfile state
+    console.log('User logged out :(', user);
     setUserProfile(null);
   };
 
   return (
     <div className="Navbar">
-      {userProfile ? (
+     {userProfile ? (
         <div className="UserProfile">
           <p>Name: {userProfile.displayName}</p>
           <p>Email: {userProfile.email}</p>

@@ -3,53 +3,45 @@ import user_icon from "./assets/user.png";
 import email_icon from "./assets/email.png";
 import password_icon from "./assets/password.png";
 import GoogleLogin from "./GoogleLogin";
-import { useState, useEffect } from "react"; // Added useEffect
+import { useState } from "react"; // Removed unused import
 import { useNavigate } from "react-router-dom";
-import "./Navbar";
-import { auth } from "./firebase";
+import Navbar from "./Navbar";
 import {
-    onAuthStateChanged,
+    getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
 } from "firebase/auth";
 
-const LoginSignUp = ({ closePopup }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [showLoginSignUp, setShowLoginSignUp] = useState(true);
-    const [action, setAction] = useState("Sign Up");
+const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [displayName, setDisplayName] = useState("");
     const [loginError, setLoginError] = useState(null);
     const [registrationError, setRegistrationError] = useState(null);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [resetPasswordError, setResetPasswordError] = useState(null);
     const [resetPasswordSuccess, setResetPasswordSuccess] = useState(null);
+    const [action, setAction] = useState("Sign Up");
     const navigate = useNavigate();
-    const [displayName, setDisplayName] = useState("");
-    
+    const auth = getAuth();
 
     const formatErrorMessage = (errorMessage) => {
         return errorMessage
-            .replace(/Firebase: Error \(auth\/|-\b/g, ' ') // Replace 'Firebase: Error (auth/' and dashes with spaces
-            .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize the first letter of each word
-            .replace(').', ''); // Remove trailing ').' if present
+            .replace(/Firebase: Error \(auth\/|-\b/g, ' ')
+            .replace(/\b\w/g, (char) => char.toUpperCase())
+            .replace(').', '');
     };
-
-
 
     const handleRegister = async () => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            user.displayName = displayName;
-            console.log("User registered:", user);
-            console.log("User Name:", user.displayName);
-            console.log("User Email:", user.email);
-            setRegistrationError(null);
-            setIsAuthenticated(true);
-            closePopup();
-            navigate('/checklist');
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const newUser = userCredential.user;
+          newUser.displayName = displayName;
+          setRegistrationError(null);
+          onLoginSuccess(newUser); // Pass user info to parent component
+          closePopup();
+          navigate('/checklist');
         } catch (error) {
             console.error('Registration error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
@@ -67,7 +59,6 @@ const LoginSignUp = ({ closePopup }) => {
         }
     };
 
-
     const switchAction = (newAction) => {
         setLoginError(null);
         setRegistrationError(null);
@@ -83,19 +74,15 @@ const LoginSignUp = ({ closePopup }) => {
         setResetPasswordSuccess(null);
     };
 
-
     const handleLogin = async () => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            user.displayName = displayName;
-            console.log("User Logged In:", user);
-            console.log("User Name:", user.displayName);
-            console.log("User Email:", user.email);
-            setLoginError(null);
-            setIsAuthenticated(true);
-            closePopup();
-            navigate('/checklist');
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const oldUser = userCredential.user;
+          oldUser.displayName = displayName;
+          setLoginError(null);
+          onLoginSuccess(oldUser); // Pass user info to parent component
+          closePopup();
+          navigate('/checklist');
         } catch (error) {
             console.error('Login error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
@@ -153,7 +140,7 @@ const LoginSignUp = ({ closePopup }) => {
                     />
                 </div>
             </div>
-            {action === "Sign Up" ? ( // Fixed condition here
+            {action === "Sign Up" ? (
                 <div className="forgot-password" onClick={() => setShowForgotPassword(true)}>
                     Forgot Password? <span> Click Here!</span>
                 </div>
@@ -185,7 +172,7 @@ const LoginSignUp = ({ closePopup }) => {
                             &times;
                         </span>
                         <h2>Forgot Password</h2>
-                        {resetPasswordSuccess ? ( // Check if resetPasswordSuccess is not empty
+                        {resetPasswordSuccess ? (
                             <div className="success-message">{resetPasswordSuccess}</div>
                         ) : (
                             <p>
