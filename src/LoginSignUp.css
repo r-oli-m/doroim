@@ -1,13 +1,15 @@
 body {
     font-family: 'Karla', sans-serif;
     /* FOR SOME REASON THIS APPLIES TO WHOLE WEBSITE     */
-} 
+    /* having trouble applying font karla everywehre */
+}
 
 .container {
     display: flex;
     flex-direction: column;
     background: #f1f1f1;
-    border-radius: 15px; /* Adjusted for a more subtle curve */
+    border-radius: 15px;
+    /* Adjusted for a more subtle curve */
     margin: auto;
     padding: 10px;
     position: relative;
@@ -54,9 +56,11 @@ body {
     flex-direction: column;
     gap: 25px;
 }
+
 .input input::placeholder {
     font-family: 'Karla', sans-serif;
-  }
+}
+
 .input {
     display: flex;
     align-items: center;
@@ -100,6 +104,7 @@ body {
     color: #4c00b4;
     cursor: pointer;
 }
+
 .error-message,
 .success-message {
     margin-top: 1rem;
@@ -220,7 +225,7 @@ body {
 }
 
 .google-login img:hover {
-    background-color: #e4e4e496;
+    background-color: #f2dbff;
 }
 
 .google-login img:active {
