@@ -10,6 +10,8 @@ import Inventory from "./SubPages/Inventory";
 import GoogleLogin from "./GoogleLogin";
 import ResetPassword from "./ResetPassword";
 import LoginSignUp from "./LoginSignUp";
+import CreateGroup from './CreateGroup';
+import JoinGroup from './JoinGroup';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -19,19 +21,21 @@ const App = () => {
   };
 
   return (
-      <div>
-        <Navbar user={user} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/checklist" element={<Checklist />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/google-login" element={<GoogleLogin />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/auth" element={<LoginSignUp onLoginSuccess={handleLoginSuccess} />} />
-        </Routes>
-      </div>
+    <div>
+      <Navbar user={user} />
+      <CreateGroup />
+      <JoinGroup />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/checklist" element={<Checklist />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/google-login" element={<GoogleLogin />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/auth" element={<LoginSignUp onLoginSuccess={handleLoginSuccess} />} />
+      </Routes>
+    </div>
   );
 };
 
