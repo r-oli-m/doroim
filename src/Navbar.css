@@ -10,6 +10,7 @@
   padding: 3vh 2vh 0vh 2vh;
   height: 3vh;
   margin-bottom: 5vh;
+  background-color: transparent;
 }
 
 .title {
@@ -17,7 +18,6 @@
   align-items: center;
   margin-top: 2vh;
   margin-left: 4vh;
-  background-color: blue;
 }
 
 .right {
@@ -52,6 +52,7 @@
   margin-top: 2vh;
   border-radius: 5px;
   right: 0;
+  background-color: white;
 }
 
 .DropdownContent a {

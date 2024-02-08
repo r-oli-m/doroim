@@ -1,0 +1,92 @@
+.inventory-container {
+  margin: 8vh 2vh 0 2vh;
+  height: 100vh;
+  display: flex;
+}
+
+.clipboard-container {
+  background-color: rgb(165, 108, 42);
+  border: 5px ridge black;
+  width: 50%;
+  box-shadow: 0 10px 16px rgb(0, 0, 0);
+}
+
+.metal {
+  background-color: grey;
+  width: 50%;
+  margin: auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  height: 5vh;
+  border: 2px solid rgb(110, 110, 110);
+  border-radius: 5px;
+}
+
+.paper {
+  width: 90%;
+  background-color: rgb(248, 234, 220);
+  margin: auto;
+  height: 85%;
+  border-radius: 5px;
+  border: 2px solid rgb(110, 69, 16);
+}
+
+.suggestions {
+  margin: 0 2vh 0 2vh;
+  font-family: "Karla";
+}
+
+.suggestions h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 2vh;
+}
+
+.suggestions h3 {
+  font-size: 22px;
+}
+
+.suggestions ul {
+  margin-top: -2vh;
+  margin-left: 4vh;
+  list-style: square;
+}
+
+.right-container {
+  margin-left: 2vh;
+  width: 50%;
+  height: 100%;
+  margin-top: -5vh;
+}
+
+.imgs-container {
+  display: flex;
+}
+
+.second-postit {
+  margin-left: 3vh;
+  rotate: 10deg;
+}
+
+.chatbot-container {
+  height: 53vh;
+  width: 100%;
+  background-color: rgb(165, 108, 42);
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.second-chatbot-container {
+  background-color: rgb(248, 234, 220);
+  margin-top: 1.5vh;
+  margin-right: 1.5vh;
+  margin-left: 1.5vh;
+  height: 50vh;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.second-chatbot-container p {
+  text-align: center;
+  font-size: 24px;
+}

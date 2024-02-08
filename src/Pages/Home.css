@@ -1,6 +1,15 @@
-.home {
-  width: 100%;
+.home-container {
+  margin: 6vh auto 0 auto;
+  width: 95%;
   height: 100%;
+  align-self: center;
+  background-color: blanchedalmond;
+}
+
+.home-img {
+  height: 90vh;
+  background-color: pink;
+  margin: auto;
 }
 
 .table-container {

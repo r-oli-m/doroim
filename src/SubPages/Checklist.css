@@ -3,11 +3,7 @@
 .checklist-page {
   height: 100vh;
   padding: 3vh;
-  /* backgroun image stuff
-  background-image: url("/public/dotted-line.png");
-  background-repeat: no-repeat;
-  background-position: -1.5cm 0;
-  */
+  display: flex;
 }
 
 .checklist-container {
@@ -15,11 +11,29 @@
   border: 2px ridge black;
   padding: 1vh;
   height: 90vh;
-  width: 60%;
+  width: 50%;
+  box-shadow: 50px 0 50px -25px rgb(33, 33, 33);
 }
 
 .checklist-container button {
   cursor: pointer;
+}
+
+.secondPageBtn {
+  cursor: pointer;
+  width: 6vh;
+  height: 90vh;
+  margin-bottom: 7.5vh;
+  border: 2px solid black;
+  border-left: none;
+  background-color: white;
+  transform-origin: left center;
+  align-self: flex-end;
+}
+
+.secondPageBtn:hover {
+  transform: scaleX(170%);
+  border-right: 1.5px solid black;
 }
 
 .checklist-title {
@@ -80,6 +94,7 @@ label {
   align-items: center;
   cursor: pointer;
   font-weight: 600;
+  font-size: 20px;
 }
 
 input[type="checkbox"] {

@@ -35,6 +35,7 @@ const Checklist = () => {
 
   const [showInput, setShowInput] = useState(false);
   const [newItemText, setNewItemText] = useState("");
+  const [showFirstChecklist, setShowFirstChecklist] = useState(true);
 
   //----------------- Functions -----------------------------------------------
   const handleToggle = (itemId) => {
@@ -76,67 +77,128 @@ const Checklist = () => {
   //----------------- HTML -----------------------------------------------
   return (
     <div className="checklist-page">
-      <div className="checklist-container">
-        <div className="checklist-title">
-          <h2>Checklist title here ? ._.</h2>
-          {/* --------------- add button --------------- */}
-          <button
-            className="add-btn"
-            onClick={() => setShowInput(true)}
-            disabled={showInput}
-          >
-            <img src={addBtn} alt="Add" height={70} width={70} />
-          </button>
-        </div>
-        {/* --------------- start of checklist --------------- */}
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              {/* --------------- show item --------------- */}
-              <div className="item-and-btns">
-                <label>
+      {showFirstChecklist && (
+        <div className="checklist-container">
+          <div className="checklist-title">
+            <h2>Checklist title here ? ._.</h2>
+            {/* --------------- add button --------------- */}
+            <button
+              className="add-btn"
+              onClick={() => setShowInput(true)}
+              disabled={showInput}
+            >
+              <img src={addBtn} alt="Add" height={70} width={70} />
+            </button>
+          </div>
+          {/* --------------- start of checklist --------------- */}
+          <ul>
+            {items.map((item) => (
+              <li key={item.id}>
+                {/* --------------- show item --------------- */}
+                <div className="item-and-btns">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={item.checked}
+                      onChange={() => handleToggle(item.id)}
+                    />
+                    {item.text}
+                  </label>
+                  {/* --------------- dropdown --------------- */}
+                  <div className="dropdown-btn">
+                    <button
+                      className={`dropbtn ${
+                        item.showDetails ? "dropbtn-flipped" : ""
+                      }`}
+                      onClick={() => handleDropdown(item.id)}
+                    >
+                      <img
+                        src={dropBtn}
+                        alt="Dropdown"
+                        height={30}
+                        width={30}
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="dropdown-content">
+                  {item.showDetails && <p>Details: {item.details}</p>}
+                </div>
+              </li>
+            ))}
+
+            {/* --------------- adding new checklist item --------------- */}
+            {showInput && (
+              <div className="new-item">
+                <p> Adding a new item. . . </p>
+                <div className="input-item">
                   <input
-                    type="checkbox"
-                    checked={item.checked}
-                    onChange={() => handleToggle(item.id)}
+                    type="text"
+                    value={newItemText}
+                    onChange={(e) => setNewItemText(e.target.value)}
                   />
-                  {item.text}
-                </label>
-                {/* --------------- dropdown --------------- */}
-                <div className="dropdown-btn">
-                  <button
-                    className={`dropbtn ${
-                      item.showDetails ? "dropbtn-flipped" : ""
-                    }`}
-                    onClick={() => handleDropdown(item.id)}
-                  >
-                    <img src={dropBtn} alt="Dropdown" height={30} width={30} />
-                  </button>
+                  <button onClick={handleAddItem}>Add</button>
+                  <button onClick={() => setShowInput(false)}>Cancel</button>
                 </div>
               </div>
-              <div className="dropdown-content">
-                {item.showDetails && <p>Details: {item.details}</p>}
-              </div>
-            </li>
-          ))}
-          {/* --------------- adding new checklist item --------------- */}
-          {showInput && (
-            <div className="new-item">
-              <p> Adding a new item. . . </p>
-              <div className="input-item">
-                <input
-                  type="text"
-                  value={newItemText}
-                  onChange={(e) => setNewItemText(e.target.value)}
-                />
-                <button onClick={handleAddItem}>Add</button>
-                <button onClick={() => setShowInput(false)}>Cancel</button>
-              </div>
-            </div>
-          )}
-        </ul>
-        {/* --------------- end of checklist --------------- */}
-      </div>
+            )}
+          </ul>
+          {/* --------------- end of checklist --------------- */}
+        </div>
+      )}
+
+      {/* --------------- checklist 2  --------------------------------------------- --------------- --------------- */}
+      {!showFirstChecklist && (
+        <div className="checklist-container">
+          <div className="checklist-title">
+            <h2>Checked Items</h2>
+          </div>
+          {/* --------------- start of checklist --------------- */}
+          <ul>
+            {items
+              .filter((item) => item.checked)
+              .map((item) => (
+                <li key={item.id}>
+                  {/* --------------- show item --------------- */}
+                  <div className="item-and-btns">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={item.checked}
+                        onChange={() => handleToggle(item.id)}
+                      />
+                      {item.text}
+                    </label>
+                    {/* --------------- dropdown --------------- */}
+                    <div className="dropdown-btn">
+                      <button
+                        className={`dropbtn ${
+                          item.showDetails ? "dropbtn-flipped" : ""
+                        }`}
+                        onClick={() => handleDropdown(item.id)}
+                      >
+                        <img
+                          src={dropBtn}
+                          alt="Dropdown"
+                          height={30}
+                          width={30}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="dropdown-content">
+                    {item.showDetails && <p>Details: {item.details}</p>}
+                  </div>
+                </li>
+              ))}
+          </ul>
+          {/* --------------- end of checklist --------------- */}
+        </div>
+      )}
+      <button
+        className="secondPageBtn"
+        onClick={() => setShowFirstChecklist(!showFirstChecklist)}
+      ></button>
     </div>
   );
 };

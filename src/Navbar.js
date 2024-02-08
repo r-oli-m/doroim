@@ -16,26 +16,24 @@ function Navbar() {
       </div>
 
       <div className="right">
-        <div>
-          <div
-            className="Dropdown"
-            onMouseEnter={handleDropdownToggle}
-            onMouseLeave={handleDropdownToggle}
-          >
-            <div className="link">
-              <Link to="/">home</Link>
-            </div>
-            {isDropdownOpen && (
-              <div className="DropdownContent">
-                <div className="link">
-                  <Link to="/inventory">inventory</Link>
-                </div>
-                <div className="link">
-                  <Link to="/checklist">checklist</Link>
-                </div>
-              </div>
-            )}
+        <div
+          className="Dropdown"
+          onMouseEnter={handleDropdownToggle}
+          onMouseLeave={handleDropdownToggle}
+        >
+          <div className="link">
+            <Link to="/">home</Link>
           </div>
+          {isDropdownOpen && (
+            <div className="DropdownContent">
+              <div className="link">
+                <Link to="/inventory">inventory</Link>
+              </div>
+              <div className="link">
+                <Link to="/checklist">checklist</Link>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="link">
@@ -44,6 +42,10 @@ function Navbar() {
 
         <div className="link">
           <Link to="/about">about</Link>
+        </div>
+
+        <div className="link">
+          <Link to="/about">Log in</Link>
         </div>
       </div>
     </div>
