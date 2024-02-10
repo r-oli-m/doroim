@@ -19,6 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app); // Use getAuth to get the authentication object
+
 const googleProvider = new GoogleAuthProvider(); // Fix the typo here
 
 // Get a Firestore instance

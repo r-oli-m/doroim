@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar user={user}/>
       <CreateGroup />
       <JoinGroup />
       <Routes>
