@@ -15,10 +15,20 @@ import JoinGroup from './JoinGroup';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState(null); // Initialize userProfile state
+
 
   const handleLoginSuccess = (user) => {
     setUser(user);
   };
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+  
 
   return (
     <div>
@@ -33,7 +43,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/google-login" element={<GoogleLogin />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/auth" element={<LoginSignUp onLoginSuccess={handleLoginSuccess} />} />
+        <Route path="/auth" element={<LoginSignUp closePopup={closePopup} onLoginSuccess={handleLoginSuccess} />} />
       </Routes>
     </div>
   );

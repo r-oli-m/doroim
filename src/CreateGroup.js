@@ -51,6 +51,7 @@ const CreateGroup = ({ user }) => {
             setPermissionCode('PLEASE SIGN IN before creating a group');
             return; // Exit early if user is not signed in
         }
+        navigate(CreateGroup);
 
         const generatedCode = generatePermissionCode();
         setPermissionCode(generatedCode); // Set the generated code to state
