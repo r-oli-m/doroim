@@ -4,6 +4,7 @@ import { getAuth, getUser } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const CreateGroup = ({ user }) => {
+    const my_user = user;
     const navigate = useNavigate(); // Initialize the navigate function
     const auth = getAuth();
     const firestore = getFirestore();
@@ -25,6 +26,7 @@ const CreateGroup = ({ user }) => {
                 } catch (error) {
                     console.error('Error fetching user information: ', error);
                 } finally {
+                    console.log('User information fetched');
                     setLoading(false); // Set loading to false after fetching user info
                 }
             }
@@ -47,7 +49,6 @@ const CreateGroup = ({ user }) => {
         e.preventDefault();
         if (!user) {
             console.log('Not signed in');
-            navigate('/auth');
             setPermissionCode('PLEASE SIGN IN before creating a group');
             return; // Exit early if user is not signed in
         }
@@ -71,8 +72,7 @@ const CreateGroup = ({ user }) => {
     if (!user && !loading) {
         return (
             <div>
-                <p>Please sign in to create a group.</p>
-                <button onClick={() => navigate('/auth')}>Sign In</button>
+                <p>Please sign in to create a group.</p>=
             </div>
         );
     }
@@ -95,8 +95,11 @@ const CreateGroup = ({ user }) => {
                 />
                 <button type="submit">Create Group</button>
             </form>
-            {permissionCode && (
+            {my_user && ( // Conditional rendering permission code and user available
                 <p>Permission Code: {permissionCode}</p>
+            )}
+            {!my_user && (
+                <p>Please sign in to create a group.</p>
             )}
         </div>
     );

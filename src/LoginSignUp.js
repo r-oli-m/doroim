@@ -10,7 +10,7 @@ import {
     signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail, 
+    sendPasswordResetEmail,
     signInWithPopup,
     GoogleAuthProvider
 } from "firebase/auth";
@@ -40,13 +40,13 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
 
     const handleRegister = async () => {
         try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          const newUser = userCredential.user;
-          newUser.displayName = displayName;
-          setRegistrationError(null);
-          onLoginSuccess(newUser); // Pass user info to parent component
-          closePopup();
-          navigate('/checklist');
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const newUser = userCredential.user;
+            newUser.displayName = displayName;
+            setRegistrationError(null);
+            onLoginSuccess(newUser); // Pass user info to parent component
+            closePopup();
+            navigate('/checklist');
         } catch (error) {
             console.error('Registration error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
@@ -81,13 +81,13 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
 
     const handleLogin = async () => {
         try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          const oldUser = userCredential.user;
-          oldUser.displayName = displayName;
-          setLoginError(null);
-          onLoginSuccess(oldUser); // Pass user info to parent component
-          closePopup();
-          navigate('/checklist');
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const oldUser = userCredential.user;
+            oldUser.displayName = displayName;
+            setLoginError(null);
+            onLoginSuccess(oldUser); // Pass user info to parent component
+            closePopup();
+            navigate('/checklist');
         } catch (error) {
             console.error('Login error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
@@ -96,25 +96,25 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
 
     googleProvider.setCustomParameters({
         prompt: 'select_account'
-      });
-      
+    });
+
     //google log in 
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-            
-          console.log("Google user logged in:", user);
-      
-          // Call the handleGoogleLoginSuccess function passed from Navbar
-          onLoginSuccess(user);
-      
-          // Redirect or perform other actions after successful login
+            const google_user = result.user;
+
+            console.log("Google user logged in:", google_user);
+
+            // Call the handleGoogleLoginSuccess function passed from Navbar
+            onLoginSuccess(google_user);
+
+            // Redirect or perform other actions after successful login
         } catch (error) {
-          console.error("Google login error:", error.message);
-          // Handle login errors (e.g., display an error message to the user)
+            console.error("Google login error:", error.message);
+            // Handle login errors (e.g., display an error message to the user)
         }
-      };
+    };
 
     return (
         <div className="container">

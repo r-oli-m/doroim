@@ -28,7 +28,7 @@ const App = () => {
   return (
     <div>
       <Navbar user={user}/>
-      <CreateGroup />
+      <CreateGroup user={user}/>
       <JoinGroup />
       <Routes>
         <Route path="/" element={<Home />} />
