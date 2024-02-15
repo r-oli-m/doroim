@@ -2,16 +2,19 @@ import "./LoginSignUp.css";
 import user_icon from "./assets/user.png";
 import email_icon from "./assets/email.png";
 import password_icon from "./assets/password.png";
-import GoogleLogin from "./GoogleLogin";
 import { useState } from "react"; // Removed unused import
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import {
     getAuth,
+    signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail,
+    sendPasswordResetEmail, 
+    signInWithPopup,
+    GoogleAuthProvider
 } from "firebase/auth";
+import { auth, googleProvider } from "./firebase";
 
 const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const [email, setEmail] = useState("");
@@ -25,6 +28,8 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const [action, setAction] = useState("Sign Up");
     const navigate = useNavigate();
     const auth = getAuth();
+    const googleProvider = new GoogleAuthProvider();
+
 
     const formatErrorMessage = (errorMessage) => {
         return errorMessage
@@ -88,6 +93,28 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
             setLoginError(formatErrorMessage(error.message));
         }
     };
+
+    googleProvider.setCustomParameters({
+        prompt: 'select_account'
+      });
+      
+    //google log in 
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            
+          console.log("Google user logged in:", user);
+      
+          // Call the handleGoogleLoginSuccess function passed from Navbar
+          onLoginSuccess(user);
+      
+          // Redirect or perform other actions after successful login
+        } catch (error) {
+          console.error("Google login error:", error.message);
+          // Handle login errors (e.g., display an error message to the user)
+        }
+      };
 
     return (
         <div className="container">
@@ -162,9 +189,18 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
                     Login
                 </div>
             </div>
+            {/* --------------------------------------  google login -------------------------------------- */}
             <div className="google-login">
-                <GoogleLogin />
+                <div className="google-login">
+                    <img
+                        onClick={handleGoogleLogin}
+                        src="/google-logo.png"
+                        alt="Google Logo"
+                    />
+                </div >
             </div>
+
+            {/* --------------------------------------  ------- -------------------------------------- */}
             {showForgotPassword && (
                 <div className="overlay">
                     <div className="popup">
