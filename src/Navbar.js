@@ -1,12 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import doroLogo from "./doro_logo.png";
-function Navbar() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+import LoginSignUp from "./auth/LoginSignUp.js";
 
+const Navbar = ({ user }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+  useEffect(() => {
+    // Set userProfile state when user prop changes
+    setUserProfile(user);
+  }, [user]);
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
+  const handleLoginSuccess = (user) => {
+    // Update the userProfile state with user data
+    setUserProfile({
+      displayName: user.displayName,
+      email: user.email,
+    });
+    console.log("User logged in!", user);
+    // Close the popup
+    closePopup();
+  };
+
+  const handleLogout = () => {
+    console.log("User logged out :(", user);
+    setUserProfile(null);
   };
 
   return (
@@ -45,11 +77,28 @@ function Navbar() {
         </div>
 
         <div className="link">
-          <Link to="/about">Log in</Link>
+          {userProfile ? (
+            <div className="UserProfile">
+              <p>Name: {userProfile.displayName}</p>
+              <p>Email: {userProfile.email}</p>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          ) : (
+            <button onClick={openPopup}>Login</button>
+          )}
+
+          {isPopupOpen && (
+            <div className="PopupBackground">
+              <LoginSignUp
+                closePopup={closePopup}
+                onLoginSuccess={handleLoginSuccess}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

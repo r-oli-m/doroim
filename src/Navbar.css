@@ -32,9 +32,7 @@
   border-radius: 5px;
 }
 
-.link :hover {
-  background-color: rgba(143, 143, 143, 0.611);
-}
+
 
 .Dropdown {
   position: relative;
@@ -58,4 +56,24 @@
 .DropdownContent a {
   text-decoration: none;
   display: block;
+}
+
+.PopupBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(99, 99, 99, 0.466);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.close-button {
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }

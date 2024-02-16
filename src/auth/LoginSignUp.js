@@ -1,20 +1,19 @@
 import "./LoginSignUp.css";
+/*
 import user_icon from "./assets/user.png";
 import email_icon from "./assets/email.png";
 import password_icon from "./assets/password.png";
+*/
 import { useState } from "react"; // Removed unused import
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 import {
     getAuth,
-    signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     signInWithPopup,
     GoogleAuthProvider
 } from "firebase/auth";
-import { auth, googleProvider } from "./firebase";
 
 const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const [email, setEmail] = useState("");
@@ -130,7 +129,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
             <div className="three-inputs">
                 {action === "Login" ? null : (
                     <div className="input">
-                        <img src={user_icon} alt="" />
+                        
                         <input
                             type="text"
                             placeholder="Name"
@@ -143,7 +142,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
                     </div>
                 )}
                 <div className="input">
-                    <img src={email_icon} alt="" />
+                    
                     <input
                         type="email"
                         placeholder="Email ID"
@@ -155,7 +154,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
                     />
                 </div>
                 <div className="input">
-                    <img src={password_icon} alt="" />
+                    
                     <input
                         type="password"
                         placeholder="Password"
@@ -191,13 +190,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
             </div>
             {/* --------------------------------------  google login -------------------------------------- */}
             <div className="google-login">
-                <div className="google-login">
-                    <img
-                        onClick={handleGoogleLogin}
-                        src="/google-logo.png"
-                        alt="Google Logo"
-                    />
-                </div >
+                <button onClick={handleGoogleLogin}>Or Continue with Google</button>
             </div>
 
             {/* --------------------------------------  ------- -------------------------------------- */}
