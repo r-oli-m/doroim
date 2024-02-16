@@ -10,17 +10,6 @@ import Navbar from "./Navbar";
 import Checklist from "./SubPages/Checklist";
 import Inventory from "./SubPages/Inventory";
 
-//chatbot
-import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {
-  MainContainer,
-  ChatContainer,
-  MessageList,
-  Message,
-  MessageInput,
-  TypingIndicator,
-} from "@chatscope/chat-ui-kit-react";
-
 const App = () => {
   return (
     <div>
