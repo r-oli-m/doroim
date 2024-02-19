@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import doroLogo from "./doro_logo.png";
 import LoginSignUp from "./auth/LoginSignUp.js";
+//images:
+import doroLogo from "./doro_logo.png";
+import userIcon from "./userIcon.png";
 
 const Navbar = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -53,40 +55,62 @@ const Navbar = ({ user }) => {
           onMouseEnter={handleDropdownToggle}
           onMouseLeave={handleDropdownToggle}
         >
-          <div className="link">
-            <Link to="/">home</Link>
+          <div>
+            <Link to="/" className="link">
+              home
+            </Link>
           </div>
           {isDropdownOpen && (
             <div className="DropdownContent">
-              <div className="link">
-                <Link to="/inventory">inventory</Link>
+              <div>
+                <Link className="link" to="/inventory">
+                  inventory
+                </Link>
               </div>
-              <div className="link">
-                <Link to="/checklist">checklist</Link>
+              <div>
+                <Link className="link" to="/checklist">
+                  checklist
+                </Link>
               </div>
             </div>
           )}
         </div>
 
-        <div className="link">
-          <Link to="/contact">contact</Link>
+        <div>
+          <Link className="link" to="/contact">
+            contact
+          </Link>
         </div>
 
-        <div className="link">
-          <Link to="/about">about</Link>
+        <div>
+          <Link className="link" to="/about">
+            about
+          </Link>
         </div>
-
-        <div className="link">
+        {/* --------------------- LOGIN -------------------- */}
+        <div className="loginstuff">
           {userProfile ? (
-            <div className="UserProfile">
-              <p>Name: {userProfile.displayName}</p>
-              <p>Email: {userProfile.email}</p>
-              <button onClick={handleLogout}>Logout</button>
+            <div
+              className="Dropdown"
+              onMouseEnter={handleDropdownToggle}
+              onMouseLeave={handleDropdownToggle}
+            >
+              <div>
+                <img src={userIcon} width="60vh" alt="Logo" />
+              </div>
+              {isDropdownOpen && (
+                <div className="Dropdown2">
+                  <p>Name: {userProfile.displayName}</p>
+                  <p>Email: {userProfile.email}</p>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
             </div>
           ) : (
-            <button onClick={openPopup}>Login</button>
+            <Link className="link" onClick={openPopup}>
+              Login
+            </Link>
           )}
-
           {isPopupOpen && (
             <div className="PopupBackground">
               <LoginSignUp

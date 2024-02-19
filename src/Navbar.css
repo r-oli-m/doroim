@@ -7,7 +7,7 @@
   font-size: 25px;
   text-decoration: none;
   color: black;
-  padding: 3vh 2vh 0vh 2vh;
+  padding: 3vh 2vh 2vh 2vh;
   height: 3vh;
   margin-bottom: 5vh;
   background-color: transparent;
@@ -32,7 +32,9 @@
   border-radius: 5px;
 }
 
-
+.link:hover {
+  background-color: #ccc;
+}
 
 .Dropdown {
   position: relative;
@@ -72,8 +74,39 @@
 }
 
 .close-button {
-  background-color: #ccc;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.loginstuff {
+  padding: 0 2vh 2vh 2vh;
+}
+
+.loginstuff img {
+  cursor: pointer;
+  margin-top: -1.5vh;
+  margin-bottom: 0vh;
+}
+
+.loginstuff img:hover {
+  transform: scale(115%);
+}
+
+.Dropdown:hover .Dropdown2 {
+  display: block;
+}
+
+.Dropdown2 {
+  display: none;
+  position: absolute;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  right: 0;
+  background-color: white;
+}
+
+.Dropdown2 a {
+  text-decoration: none;
+  display: block;
 }
