@@ -1,9 +1,13 @@
 import React from "react";
+import CreateGroup from "../auth/CreateGroup";
+import JoinGroup from "../auth/JoinGroup";
+import "./Contact.css";
 
-const Contact = () => {
+const Contact = ({ user }) => {
   return (
-    <div>
-      <h1>tpu find groups stuff here</h1>
+    <div className="groups-container">
+      <CreateGroup user={user} />
+      <JoinGroup />
     </div>
   );
 };

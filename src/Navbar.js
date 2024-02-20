@@ -12,6 +12,11 @@ const Navbar = ({ user }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+  const handleDropdownToggle2 = () => {
+    setIsDropdownOpen2(!isDropdownOpen2);
+  };
+
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   useEffect(() => {
@@ -77,8 +82,8 @@ const Navbar = ({ user }) => {
         </div>
 
         <div>
-          <Link className="link" to="/contact">
-            contact
+          <Link className="link" to="/groups">
+            groups
           </Link>
         </div>
 
@@ -92,13 +97,13 @@ const Navbar = ({ user }) => {
           {userProfile ? (
             <div
               className="Dropdown"
-              onMouseEnter={handleDropdownToggle}
-              onMouseLeave={handleDropdownToggle}
+              onMouseEnter={handleDropdownToggle2}
+              onMouseLeave={handleDropdownToggle2}
             >
               <div>
                 <img src={userIcon} width="60vh" alt="Logo" />
               </div>
-              {isDropdownOpen && (
+              {isDropdownOpen2 && (
                 <div className="Dropdown2">
                   <div className="userinfo">
                     <p>Name: </p>
@@ -109,14 +114,14 @@ const Navbar = ({ user }) => {
                     <p>{userProfile.email}</p>
                   </div>
                   <button className="logout-btn" onClick={handleLogout}>
-                    Logout
+                    logout
                   </button>
                 </div>
               )}
             </div>
           ) : (
             <Link className="link" onClick={openPopup}>
-              Login
+              login
             </Link>
           )}
           {isPopupOpen && (

@@ -84,7 +84,7 @@ function Chatbot() {
             <MessageList
               typingIndicator={
                 isChatbotTyping ? (
-                  <TypingIndicator content="ChatGPT is thinking" />
+                  <TypingIndicator content="Please wait" />
                 ) : null
               }
             >
@@ -111,6 +111,67 @@ function Chatbot() {
   );
 }
 
+const titles = [
+  "Organization and Storage:",
+  "Clothing and Laundry:",
+  "Electronics:",
+  "Toiletries and Hygiene:",
+  "Kitchen and Cleaning Items:",
+];
+
+const items = [
+  [
+    "Storage Bins",
+    "Bulletin Board",
+    "Dry-erase whiteboard",
+    "Command strips :) (for decoration)",
+    "Desk Organizers",
+  ],
+  [
+    "Bedsheets and Pillowcases",
+    "Blankets",
+    "Mattress Topper",
+    "Clothes",
+    "Clothes Hangers",
+    "Laundry Detergent",
+    "Laundry Bag",
+  ],
+  [
+    "Laptop / Tablet",
+    "Headphones",
+    "Surge Protector",
+    "Extension Cords",
+    "Chargers",
+    "Other Items, like Gaming consoles",
+  ],
+  [
+    "Vitamins / Medication",
+    "First-aid Kit",
+    "Shower Caddy",
+    "Shower Shoes",
+    "Towels",
+    "Body Wash",
+    "Shampoo and Conditioner",
+    "Lotion",
+    "Skincare Items",
+    "Razor and shaving cream",
+    "Feminine hygiene products",
+  ],
+  [
+    "Paper towels",
+    "Trashbags",
+    "All-purpose cleaner",
+    "Air freshener",
+    "Wet wipes",
+    "Utensils / Silverware",
+    "Food Storage conatiners",
+    "Tissues",
+    "Water Bottle",
+    "Minifridge",
+    "Microwave",
+  ],
+];
+
 const Inventory = () => {
   return (
     <div className="inventory-container">
@@ -120,31 +181,35 @@ const Inventory = () => {
         <div className="paper">
           <div className="suggestions">
             <h1>Suggested Dorm Items</h1>
-            <h3>Organization and Storage:</h3>
-            <ul>
-              <li>item 1</li>
-              <li>item 2</li>
-              <li>item</li>
-              <li>item</li>
-              <li>item</li>
-              <li>item</li>
-              <li>item</li>
-              <li>item</li>
-            </ul>
+            {titles.map((title, index) => (
+              <div key={index}>
+                <h3>{title}</h3>
+                <ul>
+                  {items[index].map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>
       {/* --------------- --------------- --------------- */}
       <div className="right-container">
         <div className="imgs-container">
-          <img src={postit} alt="post-it" height={300} width={300} />
-          <img
-            className="second-postit"
-            src={postit}
-            alt="post-it"
-            height={300}
-            width={300}
-          />
+          <div className="image-container">
+            <img src={postit} alt="post-it" className="postit-image" />
+            <div className="image-text">
+              Still unsure about what to bring? Ask the chatbot!
+            </div>
+          </div>
+          <div className="image-container">
+            <img src={postit} alt="post-it" className="postit-image2" />
+            <div className="image-text2">
+              Remember these are suggestions, and some items might change based
+              on personal preference and whoch college you go to!
+            </div>
+          </div>
         </div>
         <Chatbot />
       </div>
