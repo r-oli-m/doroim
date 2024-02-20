@@ -100,9 +100,17 @@ const Navbar = ({ user }) => {
               </div>
               {isDropdownOpen && (
                 <div className="Dropdown2">
-                  <p>Name: {userProfile.displayName}</p>
-                  <p>Email: {userProfile.email}</p>
-                  <button onClick={handleLogout}>Logout</button>
+                  <div className="userinfo">
+                    <p>Name: </p>
+                    <p>{userProfile.displayName}</p>
+                  </div>
+                  <div className="userinfo">
+                    <p>Email:</p>
+                    <p>{userProfile.email}</p>
+                  </div>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </div>
               )}
             </div>

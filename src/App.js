@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 //pages:
@@ -13,15 +13,10 @@ import Inventory from "./SubPages/Inventory";
 //auth:
 import ResetPassword from "./auth/ResetPassword";
 import LoginSignUp from "./auth/LoginSignUp";
-import CreateGroup from './auth/CreateGroup';
-import JoinGroup from './auth/JoinGroup';
-
 
 const App = () => {
-
   const [user, setUser] = useState(null);
   const [isPopupOpen, setPopupOpen] = useState(false);
-
 
   const handleLoginSuccess = (user) => {
     setUser(user);
@@ -32,7 +27,7 @@ const App = () => {
 
   return (
     <div>
-      <Navbar user={user}/>
+      <Navbar user={user} />
       {/* 
       <CreateGroup user={user}/>
       <JoinGroup /> */}
@@ -43,7 +38,15 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/auth" element={<LoginSignUp closePopup={closePopup} onLoginSuccess={handleLoginSuccess} />} />
+        <Route
+          path="/auth"
+          element={
+            <LoginSignUp
+              closePopup={closePopup}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          }
+        />
       </Routes>
     </div>
   );

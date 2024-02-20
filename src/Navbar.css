@@ -53,6 +53,7 @@
   border-radius: 5px;
   right: 0;
   background-color: white;
+  z-index: 2;
 }
 
 .DropdownContent a {
@@ -80,7 +81,7 @@
 }
 
 .loginstuff {
-  padding: 0 2vh 2vh 2vh;
+  padding: 0 2vh 2vh 0vh;
 }
 
 .loginstuff img {
@@ -104,9 +105,37 @@
   border-radius: 5px;
   right: 0;
   background-color: white;
+  z-index: 2;
+  font-size: 20px;
+}
+
+.loginstuff img {
+  margin-left: 2vh;
 }
 
 .Dropdown2 a {
   text-decoration: none;
   display: block;
+}
+.Dropdown2 p {
+  margin: 0 1vh 0 1vh;
+}
+
+.userinfo {
+  margin-top: 1vh;
+}
+
+.logout-btn {
+  border: 2px solid black;
+  font-family: "Nunito";
+  font-weight: bolder;
+  font-size: 25px;
+  cursor: pointer;
+  padding: 1vh;
+  border-radius: 10px;
+  margin: 2vh 2vh 2vh 6vh;
+}
+
+.logout-btn:hover {
+  transform: scale(110%);
 }
