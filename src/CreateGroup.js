@@ -14,7 +14,7 @@ const CreateGroup = ({ user }) => {
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            if (user) {
+            if (user && !user.isAnonymous) {
                 try {
                     const { displayName, email } = user;
                     setUserInfo({ displayName, email });
@@ -42,7 +42,7 @@ const CreateGroup = ({ user }) => {
 
     const handleCreateGroup = async (e) => {
         e.preventDefault();
-        if (!user) {
+        if (!user && !loading) {
             console.log('Not signed in');
             setPermissionCode('PLEASE SIGN IN before creating a group');
             return;

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import LoginSignUp from './LoginSignUp';
+import { getAuth, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ user }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState(null); // Initialize userProfile state
+  const [userProfile, setUserProfile] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Set userProfile state when user prop changes
     setUserProfile(user);
   }, [user]);
 
@@ -20,24 +22,28 @@ const Navbar = ({ user }) => {
   };
 
   const handleLoginSuccess = (user) => {
-    // Update the userProfile state with user data
     setUserProfile({
       displayName: user.displayName,
       email: user.email
     });
-    console.log('User logged in!', user);
-    // Close the popup
     closePopup();
   };
 
-  const handleLogout = () => {
-    console.log('User logged out :(', user);
-    setUserProfile(null);
+  const handleLogout = async () => {
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      setUserProfile(null);
+      // Redirect to login page after logout
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
     <div className="Navbar">
-     {userProfile ? (
+      {userProfile ? (
         <div className="UserProfile">
           <p>Name: {userProfile.displayName}</p>
           <p>Email: {userProfile.email}</p>

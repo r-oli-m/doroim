@@ -40,15 +40,30 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
 
     const handleRegister = async () => {
         try {
+            // Create user with email and password
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
-            newUser.displayName = displayName;
+            // Set user display name
+            await newUser.updateProfile({ displayName });
             setRegistrationError(null);
             onLoginSuccess(newUser); // Pass user info to parent component
-            closePopup();
             navigate('/checklist');
         } catch (error) {
             console.error('Registration error:', formatErrorMessage(error.message));
+            setRegistrationError(formatErrorMessage(error.message));
+        }
+    };
+
+    const handleLogin = async () => {
+        try {
+            // Sign in user with email and password
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            setLoginError(null);
+            onLoginSuccess(user); // Pass user info to parent component
+            navigate('/checklist');
+        } catch (error) {
+            console.error('Login error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
         }
     };
@@ -78,21 +93,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
         setResetPasswordError(null);
         setResetPasswordSuccess(null);
     };
-
-    const handleLogin = async () => {
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const oldUser = userCredential.user;
-            oldUser.displayName = displayName;
-            setLoginError(null);
-            onLoginSuccess(oldUser); // Pass user info to parent component
-            closePopup();
-            navigate('/checklist');
-        } catch (error) {
-            console.error('Login error:', formatErrorMessage(error.message));
-            setLoginError(formatErrorMessage(error.message));
-        }
-    };
+    
 
     googleProvider.setCustomParameters({
         prompt: 'select_account'

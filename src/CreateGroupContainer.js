@@ -18,7 +18,9 @@ const CreateGroupContainer = () => {
     }, []);
 
     // Render CreateGroup only if user is logged in and loading is false
-    return !loading && user ? <CreateGroup user={user} /> : null;
+    // Also, render CreateGroup only if the user was explicitly set (not due to automatic sign-in)
+    // return !loading && user ? <CreateGroup user={user} /> : null;
+    return <CreateGroup user={user} />
 };
 
 export default CreateGroupContainer;
