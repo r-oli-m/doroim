@@ -1,0 +1,235 @@
+body {
+    font-family: 'Karla', sans-serif;
+    /* FOR SOME REASON THIS APPLIES TO WHOLE WEBSITE     */
+    /* having trouble applying font karla everywehre */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background: #f1f1f1;
+    border-radius: 15px;
+    /* Adjusted for a more subtle curve */
+    margin: auto;
+    padding: 10px;
+    position: relative;
+    width: min-content;
+    height: min-content;
+    align-content: center;
+    padding: 0px 20px 0px 20px;
+}
+
+.close {
+    font-size: 1.5rem;
+    color: #6a1bb4;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.text {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.underline {
+    width: 70px;
+    height: 6px;
+    background-color: #4c00b4;
+    border-radius: 9px;
+}
+
+.three-inputs {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input input::placeholder {
+    font-family: 'Karla', sans-serif;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    max-width: 380px;
+    height: 40px;
+    border-radius: 6px;
+}
+
+.input img {
+    margin: 0px 15px;
+}
+
+.input input {
+    flex: 1;
+    height: 40px;
+    padding: 5px;
+    background: transparent;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+    color: brown;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.input input:focus {
+    border-color: #4c00b4;
+    box-shadow: 0 0 5px rgba(76, 0, 180, 0.3);
+}
+
+.forgot-password {
+    padding-left: 1.5rem;
+    margin-top: 1.5rem;
+    color: brown;
+    font-size: 1rem;
+}
+
+.forgot-password span {
+    color: #4c00b4;
+    cursor: pointer;
+}
+
+.error-message,
+.success-message {
+    margin-top: 1rem;
+    color: red;
+}
+
+.submit-container {
+    display: flex;
+    gap: 30px;
+
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 59px;
+    color: white;
+    background: #190130;
+    border-radius: 60px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.5s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.submit:hover {
+    background: #6a1bb4;
+    color: white;
+    transform: scale(1.05);
+}
+
+.gray {
+    background: #dad9d9;
+    color: #4c00b4;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+}
+
+.popup:hover {
+    transition: ease-out 1s;
+}
+
+.popup h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.popup p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.popup input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Karla';
+}
+
+.popup button {
+    font-family: 'Karla';
+    font-weight: 700;
+    background: #6a1bb4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.popup button:hover {
+    background: #4c00b4;
+}
+
+/* Container styles */
+.google-login {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Image container styles */
+.google-login img {
+    padding: 10px;
+    border: 0.5px solid #999;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 40px;
+    height: auto;
+    box-shadow: 4px 4px 2px #999;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+}
+
+.google-login img:hover {
+    background-color: #f2dbff;
+}
+
+.google-login img:active {
+    background-color: #e4e4e496;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+}

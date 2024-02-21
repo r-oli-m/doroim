@@ -19,7 +19,7 @@ const Checklist = () => {
   };
 
   return (
-    <div className="container"> {/* Apply a CSS class to style the container */}
+    <div className="my-container"> {/* Apply a CSS class to style the container */}
       <h2>Checklist</h2>
       <ul>
         {items.map((item) => (
