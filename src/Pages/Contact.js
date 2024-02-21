@@ -1,12 +1,12 @@
 import React from "react";
-import CreateGroup from "../auth/CreateGroup";
+import CreateGroupContainer from "../auth/CreateGroupContainer";
 import JoinGroup from "../auth/JoinGroup";
 import "./Contact.css";
 
-const Contact = ({ user }) => {
+const Contact = () => {
   return (
     <div className="groups-container">
-      <CreateGroup user={user} />
+      <CreateGroupContainer />
       <JoinGroup />
     </div>
   );

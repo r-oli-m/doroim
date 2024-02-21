@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
-import { getAuth } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const CreateGroup = ({ user }) => {
-  const my_user = user;
-  const navigate = useNavigate();
-  const auth = getAuth();
   const firestore = getFirestore();
   const [groupName, setGroupName] = useState("");
   const [permissionCode, setPermissionCode] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const handleInputChange = (e) => {
-    setGroupName(e.target.value);
-  };
-
   useEffect(() => {
     const fetchUserInfo = async () => {
-      if (user) {
+      if (user && !user.isAnonymous) {
         try {
           const { displayName, email } = user;
           setUserInfo({ displayName, email });
@@ -33,12 +24,12 @@ const CreateGroup = ({ user }) => {
     };
 
     fetchUserInfo();
-  }, [auth, user]);
+  }, [user]);
 
   const generatePermissionCode = () => {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const codeLength = 6; // Change the length of the code as needed
+    const codeLength = 6;
     let code = "";
     for (let i = 0; i < codeLength; i++) {
       code += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -48,21 +39,19 @@ const CreateGroup = ({ user }) => {
 
   const handleCreateGroup = async (e) => {
     e.preventDefault();
-    if (!user) {
+    if (!user && !loading) {
       console.log("Not signed in");
       setPermissionCode("PLEASE SIGN IN before creating a group");
       return;
     }
-    navigate(CreateGroup);
 
     const generatedCode = generatePermissionCode();
     setPermissionCode(generatedCode);
     try {
-      // Add code to create group in Firestore
       const docRef = await addDoc(collection(firestore, "groups"), {
         groupName,
-        permissionCode: generatedCode, // Use the generated code
-        members: { [user.uid]: true }, // Add creator as member
+        permissionCode: generatedCode,
+        members: { [user.uid]: true },
       });
       console.log("Group created with ID: ", docRef.id);
     } catch (error) {
@@ -73,7 +62,7 @@ const CreateGroup = ({ user }) => {
   if (!user && !loading) {
     return (
       <div>
-        <p>Please sign in to create a group.</p>=
+        <p>Please sign in to create a group.</p>
       </div>
     );
   }
@@ -81,7 +70,7 @@ const CreateGroup = ({ user }) => {
   return (
     <div>
       <h2>Create a Group</h2>
-      {userInfo && ( // Conditional rendering user info available
+      {userInfo && (
         <div>
           <p>User Name: {userInfo.displayName}</p>
           <p>User Email: {userInfo.email}</p>
@@ -92,14 +81,12 @@ const CreateGroup = ({ user }) => {
           type="text"
           placeholder="Enter group name"
           value={groupName}
-          onChange={handleInputChange}
+          onChange={(e) => setGroupName(e.target.value)}
         />
         <button type="submit">Create Group</button>
       </form>
-      {my_user && ( // Conditional rendering permission code and user available
-        <p>Permission Code: {permissionCode}</p>
-      )}
-      {!my_user && <p>Please sign in to create a group.</p>}
+      {user && <p>Permission Code: {permissionCode}</p>}
+      {!user && <p>Please sign in to create a group.</p>}
     </div>
   );
 };

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import { getAuth } from "firebase/auth";
 import {
   getFirestore,
   collection,
   doc,
+  addDoc,
   updateDoc,
   query,
   where,
   getDocs,
-} from "firebase/firestore";
+} from "firebase/firestore"; // Import Firestore functions
 
 const JoinGroup = () => {
   const navigate = useNavigate(); // Initialize the navigate function
