@@ -4,6 +4,7 @@ import CreateGroup from "./CreateGroup";
 
 const CreateGroupContainer = () => {
   const [user, setUser] = useState(null);
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
