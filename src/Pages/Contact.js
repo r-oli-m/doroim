@@ -1,13 +1,12 @@
+// Contact.js
 import React from "react";
-import CreateGroupContainer from "../auth/CreateGroupContainer";
-import JoinGroup from "../auth/JoinGroup";
+import CreateGroupContainer from "./CreateGroupContainer";
 import "./Contact.css";
 
-const Contact = () => {
+const Contact = ({ user }) => { // Receive the user prop here
   return (
     <div className="groups-container">
-      <CreateGroupContainer />
-      <JoinGroup />
+      <CreateGroupContainer user={user} /> {/* Pass the user prop to CreateGroupContainer */}
     </div>
   );
 };

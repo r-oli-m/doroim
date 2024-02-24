@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import CreateGroup from "./CreateGroup";
+import CreateGroup from "../auth/CreateGroup";
+import JoinGroup from "../auth/JoinGroup"; // Import JoinGroup component
 
 const CreateGroupContainer = () => {
   const [user, setUser] = useState(null);
-  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setLoading(false); // Set loading to false after user state is set
+      setLoading(false);
     });
     return unsubscribe;
-  }, [setLoading]);
+  }, []);
 
-  // Render CreateGroup only if user is logged in and loading is false
-  // Also, render CreateGroup only if the user was explicitly set (not due to automatic sign-in)
-  // return !loading && user ? <CreateGroup user={user} /> : null;
-  return <CreateGroup user={user} />;
+  return (
+    <div>
+      <CreateGroup user={user} />
+      <JoinGroup user={user} />
+    </div>
+  );
 };
 
 export default CreateGroupContainer;
