@@ -1,48 +1,31 @@
 .home-container {
-  margin: 6vh auto 0 auto;
-  width: 95%;
-  height: 100%;
-  align-self: center;
-  background-color: blanchedalmond;
-}
-
-.home-img {
+  margin: 0vh auto 0 auto;
   height: 90vh;
-  background-color: pink;
-  margin: auto;
+  align-self: center;
+  background-image: url(../navpage.png);
+  background-size: cover;
 }
 
-.table-container {
-  text-align: center;
-  padding: 20px;
-  /* Adjust padding as needed */
+.box-image {
+  margin: 20vh 0 0 60vh;
 }
 
-.box,
-.checklist {
-  display: inline-block;
-  position: relative;
-  perspective: 1000px;
-  margin: 10px;
-  /* Adjust margin as needed */
+.checklist-image {
+  margin: -30vh 0 0 40vh;
 }
 
 .box-image,
 .checklist-image {
-  width: 200px;
+  width: 400px;
   height: auto;
   transition: transform 0.3s ease-in;
+  cursor: pointer;
 }
 
-.box:hover .box-image {
-  transform: translateY(-40px);
+.box-image:hover {
+  transform: translateY(-5vh) scale(1.1);
 }
 
-.checklist-image {
-  transform: rotate3d(1, 0.7, -1.4, 90deg) scale(0.7);
-  transition: transform 0.7s ease-in-out;
-}
-
-.checklist:hover .checklist-image {
-  transform: rotate3d(1, 0, 0, 0deg) scale(1.2);
+.checklist-image:hover {
+  transform: translateY(-5vh) scale(1.1) rotate(-10deg);
 }

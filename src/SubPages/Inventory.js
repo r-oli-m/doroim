@@ -12,7 +12,7 @@ import {
   MessageInput,
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 
 function Chatbot() {
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);

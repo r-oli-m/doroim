@@ -1,23 +1,29 @@
 import React from "react";
 import "./Home.css";
-import home from "./home_page.png";
+import box from "../boxnav.png";
+import list from "../notepadnav.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div className="home-container">
-      <div className="home-img">
-        <img src={home} alt="Home Page" height={700} width={1500} />
-      </div>
-
       <div className="table-container">
         <div className="box">
-          <img src="/box.png" alt="Box" className="box-image" />
+          <Link to="/inventory">
+            <img
+              src={box}
+              alt="Box"
+              className="box-image"
+              title="go to inventory"
+            />
+          </Link>
         </div>
         <div className="checklist">
           <img
-            src="/checklist.png"
+            src={list}
             alt="Checklist"
             className="checklist-image"
+            title="go to checklist"
           />
         </div>
       </div>

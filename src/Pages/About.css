@@ -1,0 +1,30 @@
+.about-container {
+  margin: 0vh auto 0 auto;
+  height: 90vh;
+  align-self: center;
+  background-image: url(./about.png);
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+}
+
+.about-body {
+  width: 68vh;
+  height: 65vh;
+  margin-top: 20vh;
+}
+
+.about-body h1 {
+  text-align: center;
+}
+
+.about-body p {
+  margin: 0 3vh 0 3vh;
+  text-indent: 25px;
+  font-size: 18px;
+}
+
+.aboout-body a {
+  cursor: pointer;
+}
