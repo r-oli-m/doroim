@@ -1,9 +1,12 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from 'firebase/firestore'; // Import the Firestore module
+import {
+  getAuth,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDMuuDFk2Ik5qU8dDJpKD4PXfIRF5xNtZA",
   authDomain: "doroim.firebaseapp.com",
@@ -11,16 +14,22 @@ const firebaseConfig = {
   storageBucket: "doroim.appspot.com",
   messagingSenderId: "857835517865",
   appId: "1:857835517865:web:cdbcfaad96ed3693ad76b8",
-  measurementId: "G-45W97KS3HG"
+  measurementId: "G-45W97KS3HG",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); // Use getAuth to get the authentication object
+const auth = getAuth(app);
 
-const googleProvider = new GoogleAuthProvider(); // Fix the typo here
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Authentication persistence set to local.");
+  })
+  .catch((error) => {
+    console.error("Error setting authentication persistence:", error.message);
+  });
 
-// Get a Firestore instance
+const googleProvider = new GoogleAuthProvider();
+
 const firestore = getFirestore(app);
 
-export { auth, googleProvider,firestore};
+export { auth, googleProvider, firestore };

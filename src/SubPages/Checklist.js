@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import "./Checklist.css";
-import addBtn from "./addChecklistItem.png";
-import dropBtn from "./dropdown.png";
+import addBtn from "../pictures/addChecklistItem.png";
+import dropBtn from "../pictures/dropdown.png";
 
 const Checklist = () => {
   //----------------- Variables -----------------------------------------------

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
-import box from "../boxnav.png";
-import list from "../notepadnav.png";
+import box from "../pictures/boxnav.png";
+import list from "../pictures/notepadnav.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {

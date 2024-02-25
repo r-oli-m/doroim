@@ -1,13 +1,12 @@
+// Contact.js
 import React from "react";
-import CreateGroupContainer from "../auth/CreateGroupContainer";
-import JoinGroup from "../auth/JoinGroup";
+import GroupContainer from "./GroupContainer";
 import "./Contact.css";
 
-const Contact = () => {
+const Contact = ({ user }) => {
   return (
     <div className="groups-container">
-      <CreateGroupContainer />
-      <JoinGroup />
+      <GroupContainer user={user} />
     </div>
   );
 };

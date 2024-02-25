@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Inventory.css";
 //images
-import postit from "./postit.png";
+import postit from "../pictures/postit.png";
 //chatbot using GPT 3.5 turbo
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {

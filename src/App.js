@@ -1,6 +1,6 @@
 // App.js
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 //pages:
 import Home from "./Pages/Home";
@@ -17,9 +17,11 @@ import LoginSignUp from "./auth/LoginSignUp";
 const App = () => {
   const [user, setUser] = useState(null);
   const [setPopupOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLoginSuccess = (user) => {
     setUser(user);
+    navigate("/");
   };
   const closePopup = () => {
     setPopupOpen(false);

@@ -1,8 +1,10 @@
 .home-container {
+  border-top: 4px groove rgba(0, 0, 0, 0.445);
+  border-radius: 2px;
   margin: 0vh auto 0 auto;
   height: 90vh;
   align-self: center;
-  background-image: url(../navpage.png);
+  background-image: url(../pictures/navpage.png);
   background-size: cover;
 }
 

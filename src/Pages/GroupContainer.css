@@ -1,0 +1,48 @@
+.group-container-title {
+  margin-top: 3vh;
+  margin-left: 5vh;
+}
+
+.group-container {
+  margin: 0vh 0 0 0vh;
+  display: flex;
+  min-height: 50vh;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10vh;
+  margin: 3vh 20vh 0 5vh;
+  width: 40vh;
+  height: 40vh;
+
+  border: 2px groove black;
+  border-radius: 10px;
+  padding: 2vh 3vh 5vh 3vh;
+}
+
+.current-groups {
+  margin-top: 0;
+  margin-bottom: 1vh;
+}
+
+.my-group-card {
+  border: 2px groove black;
+  border-radius: 10px;
+  padding: 0 3vh 0vh 3vh;
+  margin-bottom: 1vh;
+
+  width: 40vh;
+  height: 40vh;
+}
+
+.my-group-card h2 {
+  margin-bottom: 0vh;
+}
+
+.my-group-card h3 {
+  margin-top: 2vh;
+  margin-bottom: -1vh;
+}

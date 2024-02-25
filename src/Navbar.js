@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import LoginSignUp from "./auth/LoginSignUp.js";
 //images:
-import doroLogo from "./doro_logo.png";
-import userIcon from "./userIcon.png";
+import doroLogo from "./pictures/doro_logo.png";
+import userIcon from "./pictures/userIcon.png";
 
 const Navbar = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
