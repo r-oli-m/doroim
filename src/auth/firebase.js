@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'; // Import the Firestore module
 
 // Your web app's Firebase configuration
@@ -18,9 +18,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Use getAuth to get the authentication object
 
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    // Persistence set successfully
+    console.log("Authentication persistence set to local.");
+  })
+  .catch((error) => {
+    // Error setting persistence
+    console.error("Error setting authentication persistence:", error.message);
+  });
+
 const googleProvider = new GoogleAuthProvider(); // Fix the typo here
 
 // Get a Firestore instance
 const firestore = getFirestore(app);
 
-export { auth, googleProvider,firestore};
+export { auth, googleProvider, firestore };

@@ -14,6 +14,7 @@ import {
     signInWithPopup,
     GoogleAuthProvider
 } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const [email, setEmail] = useState("");
@@ -28,6 +29,8 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
     const navigate = useNavigate();
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
+    const firestore = getFirestore();
+
 
 
     const formatErrorMessage = (errorMessage) => {
@@ -42,6 +45,20 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
             newUser.displayName = displayName;
+
+            // Check if the user document already exists in Firestore
+            const userDocRef = doc(firestore, "users", newUser.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (!userDocSnap.exists()) {
+                // Create a new document for the user with their UID as the document ID
+                await setDoc(userDocRef, {
+                    displayName: newUser.displayName,
+                    email: newUser.email,
+                    // Add other fields as needed
+                });
+            }
+
             setRegistrationError(null);
             onLoginSuccess(newUser); // Pass user info to parent component
             closePopup();
@@ -49,6 +66,36 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
         } catch (error) {
             console.error('Registration error:', formatErrorMessage(error.message));
             setLoginError(formatErrorMessage(error.message));
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            const google_user = result.user;
+
+            console.log("Google user logged in:", google_user);
+
+            // Check if the user document already exists in Firestore
+            const userDocRef = doc(firestore, "users", google_user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (!userDocSnap.exists()) {
+                // Create a new document for the user with their UID as the document ID
+                await setDoc(userDocRef, {
+                    displayName: google_user.displayName,
+                    email: google_user.email,
+                    // Add other fields as needed
+                });
+            }
+
+            // Call the handleGoogleLoginSuccess function passed from Navbar
+            onLoginSuccess(google_user);
+
+            // Redirect or perform other actions after successful login
+        } catch (error) {
+            console.error("Google login error:", error.message);
+            // Handle login errors (e.g., display an error message to the user)
         }
     };
 
@@ -97,24 +144,6 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
         prompt: 'select_account'
     });
 
-    //google log in 
-    const handleGoogleLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            const google_user = result.user;
-
-            console.log("Google user logged in:", google_user);
-
-            // Call the handleGoogleLoginSuccess function passed from Navbar
-            onLoginSuccess(google_user);
-
-            // Redirect or perform other actions after successful login
-        } catch (error) {
-            console.error("Google login error:", error.message);
-            // Handle login errors (e.g., display an error message to the user)
-        }
-    };
-
     return (
         <div className="container">
             <div className="close-container">
@@ -129,7 +158,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
             <div className="three-inputs">
                 {action === "Login" ? null : (
                     <div className="input">
-                        
+
                         <input
                             type="text"
                             placeholder="Name"
@@ -142,7 +171,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
                     </div>
                 )}
                 <div className="input">
-                    
+
                     <input
                         type="email"
                         placeholder="Email ID"
@@ -154,7 +183,7 @@ const LoginSignUp = ({ closePopup, onLoginSuccess }) => {
                     />
                 </div>
                 <div className="input">
-                    
+
                     <input
                         type="password"
                         placeholder="Password"

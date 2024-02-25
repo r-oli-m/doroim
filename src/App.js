@@ -1,16 +1,16 @@
-// App.js
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-//pages:
+// Import the Firebase functionalities directly from firebase.js
+import { auth, googleProvider, firestore } from "./auth/firebase";
+
+// Import pages and components
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Navbar from "./Navbar";
-//sub pages:
 import Checklist from "./SubPages/Checklist";
 import Inventory from "./SubPages/Inventory";
-//auth:
 import ResetPassword from "./auth/ResetPassword";
 import LoginSignUp from "./auth/LoginSignUp";
 

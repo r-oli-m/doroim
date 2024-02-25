@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, collection, addDoc, getDoc } from "firebase/firestore";
 
 const CreateGroup = ({ user }) => {
   const firestore = getFirestore();
@@ -13,7 +13,24 @@ const CreateGroup = ({ user }) => {
       if (user && !user.isAnonymous) {
         try {
           const { displayName, email } = user;
-          setUserInfo({ displayName, email });
+
+          // Initialize userData with displayName and email
+          const userData = { displayName, email };
+
+          // Fetch additional user information from Firestore
+          const userDocRef = doc(firestore, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+
+          // If user document exists, merge data with userData
+          if (userDocSnap.exists()) {
+            const additionalData = userDocSnap.data();
+            Object.assign(userData, additionalData);
+          } else {
+            console.error("User document does not exist");
+          }
+
+          // Update userInfo with merged data
+          setUserInfo(userData);
         } catch (error) {
           console.error("Error fetching user information: ", error);
         } finally {
@@ -23,8 +40,9 @@ const CreateGroup = ({ user }) => {
       }
     };
 
+
     fetchUserInfo();
-  }, [user]);
+  }, [user, firestore]);
 
   const generatePermissionCode = () => {
     const characters =
@@ -39,7 +57,7 @@ const CreateGroup = ({ user }) => {
 
   const handleCreateGroup = async (e) => {
     e.preventDefault();
-    if (!user && !loading) {
+    if (!user || loading) {
       console.log("Not signed in");
       setPermissionCode("PLEASE SIGN IN before creating a group");
       return;
@@ -47,13 +65,23 @@ const CreateGroup = ({ user }) => {
 
     const generatedCode = generatePermissionCode();
     setPermissionCode(generatedCode);
+
+    // Create an array of user objects
+    const members = [
+      {
+        uid: user.uid,
+        displayName: userInfo.displayName, // Use the fetched displayName
+        color: userInfo.color || "#000000"
+      }
+    ];
+
     try {
       const docRef = await addDoc(collection(firestore, "groups"), {
         groupName,
-        permissionCode: generatedCode,
-        members: { [user.uid]: true },
+        permissionCode,
+        members: members // Pass the array of user objects
       });
-      console.log("Group created with ID: ", docRef.id);
+      console.log("Group created with ID: ", docRef.id); // Log group name as ID
     } catch (error) {
       console.error("Error creating group: ", error);
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CreateGroup from "../auth/CreateGroup";
 import JoinGroup from "../auth/JoinGroup"; // Import JoinGroup component
+import ColorPicker from "../ColorPicker";
 
 const CreateGroupContainer = () => {
   const [user, setUser] = useState(null);
@@ -20,6 +21,7 @@ const CreateGroupContainer = () => {
     <div>
       <CreateGroup user={user} />
       <JoinGroup user={user} />
+      <ColorPicker user={user} /> 
     </div>
   );
 };

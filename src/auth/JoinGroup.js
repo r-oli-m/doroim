@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getFirestore, collection, doc, updateDoc, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, doc, updateDoc, query, where, getDocs, onSnapshot } from "firebase/firestore";
 
 const JoinGroup = ({ user }) => {
   const navigate = useNavigate();
@@ -35,6 +35,13 @@ const JoinGroup = ({ user }) => {
     };
 
     fetchGroups();
+
+    // Real-time updates for group members
+    const unsubscribe = onSnapshot(collection(firestore, "groups"), (snapshot) => {
+      fetchGroups();
+    });
+
+    return () => unsubscribe();
   }, [firestore, user]);
 
   const handleJoinGroup = async (e) => {
@@ -57,7 +64,10 @@ const JoinGroup = ({ user }) => {
 
         const groupRef = doc(firestore, "groups", groupId);
         await updateDoc(groupRef, {
-          [`members.${user.displayName}`]: true,
+          [`members.${user.uid}`]: {
+            displayName: user.displayName, // Use UID as key
+            color: user.color || "#000000"
+          },
         });
 
         console.log("Joined group with ID: ", groupId);
@@ -88,10 +98,9 @@ const JoinGroup = ({ user }) => {
           <p>Permission Code: {group.permissionCode}</p>
           <h4>Members:</h4>
           <ul>
-            {Object.entries(group.members).map(([username, isMember]) => (
-              <li key={username}>{group.members[username].displayName}</li>
+            {Object.entries(group.members).map(([uid, member]) => (
+              <li key={uid} style={{ color: member.displayName === user.displayName ? user.color : 'black' }}>{member.displayName}</li>
             ))}
-
           </ul>
         </div>
       ))}
