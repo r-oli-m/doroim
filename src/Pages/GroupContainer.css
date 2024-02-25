@@ -1,0 +1,33 @@
+.group-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    min-height: 50vh; /* Ensure the container covers the full viewport height */
+    width: 90%;
+}
+  
+  .options {
+    display: flex;
+    justify-content: center; /* Center options horizontally */
+    margin-bottom: 20px; /* Add some space between options and group cards */
+    gap: 15vh;
+    
+  }
+  /* .options1, .options2, .options3 {
+    background-color: aqua;
+  } */
+  .all-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center cards horizontally */
+  }
+  .my-group-card {
+    background-color: #9ecfff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px; /* Adjust width as needed */
+  }

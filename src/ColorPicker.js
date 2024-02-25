@@ -1,3 +1,4 @@
+// ColorPicker.js
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 
@@ -30,6 +31,7 @@ const ColorPicker = ({ user }) => {
       const userDocRef = doc(firestore, "users", user.uid);
       await updateDoc(userDocRef, { color });
       console.log("Color updated successfully!");
+      console.log(color)
       setSelectedColor(color);
     } catch (error) {
       console.error("Error updating color:", error);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 // Import the Firebase functionalities directly from firebase.js
 import { auth, googleProvider, firestore } from "./auth/firebase";
@@ -16,15 +16,13 @@ import LoginSignUp from "./auth/LoginSignUp";
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [setPopupOpen] = useState(false);
+  const navigate = useNavigate(); // Import useNavigate hook
 
   const handleLoginSuccess = (user) => {
     setUser(user);
+    navigate("/"); // Navigate to home page after successful login
   };
-  const closePopup = () => {
-    setPopupOpen(false);
-  };
-
+  
   return (
     <div>
       <Navbar user={user} />
@@ -39,7 +37,6 @@ const App = () => {
           path="/auth"
           element={
             <LoginSignUp
-              closePopup={closePopup}
               onLoginSuccess={handleLoginSuccess}
             />
           }

@@ -54,7 +54,7 @@ const CreateGroup = ({ user }) => {
     }
     return code;
   };
-
+  
   const handleCreateGroup = async (e) => {
     e.preventDefault();
     if (!user || loading) {
@@ -62,23 +62,25 @@ const CreateGroup = ({ user }) => {
       setPermissionCode("PLEASE SIGN IN before creating a group");
       return;
     }
-
+  
     const generatedCode = generatePermissionCode();
     setPermissionCode(generatedCode);
-
-    // Create an array of user objects
-    const members = [
-      {
-        uid: user.uid,
-        displayName: userInfo.displayName, // Use the fetched displayName
-        color: userInfo.color || "#000000"
-      }
-    ];
-
+  
+    // Initialize members as an empty array
+    const members = [];
+  
+    // Add the creator to the members array
+    const creator = {
+      uid: user.uid,
+      displayName: userInfo.displayName, // Use the fetched displayName
+      color: userInfo.color || "#FF0000"
+    };
+    members.push(creator);
+  
     try {
       const docRef = await addDoc(collection(firestore, "groups"), {
         groupName,
-        permissionCode,
+        permissionCode: generatedCode,
         members: members // Pass the array of user objects
       });
       console.log("Group created with ID: ", docRef.id); // Log group name as ID
@@ -86,14 +88,7 @@ const CreateGroup = ({ user }) => {
       console.error("Error creating group: ", error);
     }
   };
-
-  if (!user && !loading) {
-    return (
-      <div>
-        <p>Please sign in to create a group.</p>
-      </div>
-    );
-  }
+  
 
   return (
     <div>

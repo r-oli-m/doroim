@@ -24,9 +24,7 @@ const JoinGroup = ({ user }) => {
           fetchedGroups.push(group);
         });
 
-        const filteredGroups = fetchedGroups.filter(group => {
-          return group.members && user && group.members[user.uid]; // Check if user is a member
-        });
+        const filteredGroups = fetchedGroups.filter(group => group.members && user && group.members.find(member => member.uid === user.uid));
 
         setGroups(filteredGroups);
       } catch (error) {
@@ -52,25 +50,30 @@ const JoinGroup = ({ user }) => {
     }
 
     try {
-      const q = query(
-        collection(firestore, "groups"),
-        where("permissionCode", "==", permissionCode)
-      );
-      const groupSnapshot = await getDocs(q);
+      const groupsCollection = collection(firestore, "groups");
+      const groupsSnapshot = await getDocs(groupsCollection);
 
-      if (!groupSnapshot.empty) {
-        const groupDoc = groupSnapshot.docs[0];
-        const groupId = groupDoc.id;
+      let foundGroup = null;
+
+      groupsSnapshot.forEach((doc) => {
+        const groupData = doc.data();
+        if (groupData.permissionCode === permissionCode) {
+          foundGroup = {
+            id: doc.id,
+            ...groupData
+          };
+        }
+      });
+
+      if (foundGroup) {
+        const groupId = foundGroup.id;
 
         const groupRef = doc(firestore, "groups", groupId);
         await updateDoc(groupRef, {
-          [`members.${user.uid}`]: {
-            displayName: user.displayName, // Use UID as key
-            color: user.color || "#000000"
-          },
+          members: [...foundGroup.members, { uid: user.uid, displayName: user.displayName, color: user.color || "#FF0000" }]
         });
 
-        console.log("Joined group with ID: ", groupId);
+        console.log("Joined group with ID: ", groupId, user.color);
       } else {
         console.log("Group not found");
       }
@@ -78,6 +81,7 @@ const JoinGroup = ({ user }) => {
       console.error("Error joining group: ", error);
     }
   };
+
 
   return (
     <div>
@@ -91,19 +95,6 @@ const JoinGroup = ({ user }) => {
         />
         <button type="submit">Join Group</button>
       </form>
-      <h2>Groups</h2>
-      {groups.map((group) => (
-        <div key={group.id}>
-          <h3>{group.groupName}</h3>
-          <p>Permission Code: {group.permissionCode}</p>
-          <h4>Members:</h4>
-          <ul>
-            {Object.entries(group.members).map(([uid, member]) => (
-              <li key={uid} style={{ color: member.displayName === user.displayName ? user.color : 'black' }}>{member.displayName}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
     </div>
   );
 };
