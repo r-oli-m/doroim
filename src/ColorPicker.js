@@ -1,4 +1,3 @@
-// ColorPicker.js
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 
@@ -28,24 +27,32 @@ const ColorPicker = ({ user }) => {
   const handleColorSelection = async (color) => {
     try {
       const firestore = getFirestore();
-      const userDocRef = doc(firestore, "users", user.uid);
-      await updateDoc(userDocRef, { color });
-      console.log("Color updated successfully!");
-      console.log(color)
-      setSelectedColor(color);
+      if (user && user.uid) {
+        const userDocRef = doc(firestore, "users", user.uid);
+        await updateDoc(userDocRef, { color });
+        console.log("Color updated successfully!");
+        console.log(color);
+        setSelectedColor(color);
+      } else {
+        console.error("User object is undefined or does not have a UID property.");
+      }
     } catch (error) {
       console.error("Error updating color:", error);
     }
   };
-
+  
   return (
     <div>
-      <h2>Choose a Color</h2>
       <input
         type="color"
         value={selectedColor}
-        onChange={(e) => handleColorSelection(e.target.value)}
+        onChange={(e) => {
+          handleColorSelection(e.target.value);
+          // Update text color dynamically
+          document.getElementById("text").style.color = e.target.value;
+        }}
       />
+      <p id="text">Sample Text</p> {/* Text whose color will change dynamically */}
     </div>
   );
 };

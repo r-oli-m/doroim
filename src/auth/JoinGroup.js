@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, doc, updateDoc, query, where, getDocs, onSnapshot } from "firebase/firestore";
 
-const JoinGroup = ({ user }) => {
+const JoinGroup = ({ user, userColor }) => {
   const navigate = useNavigate();
   const firestore = getFirestore();
   const [permissionCode, setPermissionCode] = useState("");
@@ -70,10 +70,10 @@ const JoinGroup = ({ user }) => {
 
         const groupRef = doc(firestore, "groups", groupId);
         await updateDoc(groupRef, {
-          members: [...foundGroup.members, { uid: user.uid, displayName: user.displayName, color: user.color || "#FF0000" }]
+          members: [...foundGroup.members, { uid: user.uid, displayName: user.displayName, color: userColor || "#FF0000" }]
         });
 
-        console.log("Joined group with ID: ", groupId, user.color);
+        console.log("Joined group with ID: ", groupId, userColor);
       } else {
         console.log("Group not found");
       }

@@ -5,7 +5,7 @@
     align-items: center; /* Center children horizontally */
     justify-content: center; /* Center children vertically */
     min-height: 50vh; /* Ensure the container covers the full viewport height */
-    width: 90%;
+    width: 100%;
 }
   
   .options {

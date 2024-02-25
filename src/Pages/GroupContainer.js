@@ -1,10 +1,9 @@
-// GroupContainer.js
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CreateGroup from "../auth/CreateGroup";
 import JoinGroup from "../auth/JoinGroup";
 import ColorPicker from "../ColorPicker";
-import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import "../Pages/GroupContainer.css";
 
 const GroupContainer = () => {
@@ -42,17 +41,33 @@ const GroupContainer = () => {
     }
   }, [user]);
 
+  const handleColorChange = async (groupId, memberId, color) => {
+    try {
+      const firestore = getFirestore();
+      const groupRef = doc(firestore, "groups", groupId);
+      await updateDoc(groupRef, {
+        members: groups
+          .find((group) => group.id === groupId)
+          .members.map((member) =>
+            member.uid === memberId ? { ...member, color: color } : member
+          )
+      });
+    } catch (error) {
+      console.error("Error updating member color:", error);
+    }
+  };
+
   return (
     <div className="group-container">
       <h1>Group Management</h1>
       <div className="options">
-        <div className="option1">
+        <div>
           <CreateGroup user={user} />
         </div>
-        <div className="option2">
+        <div>
           <JoinGroup user={user} />
         </div>
-        <div className="option3">
+        <div>
           <ColorPicker user={user} />
         </div>
       </div>
@@ -64,7 +79,15 @@ const GroupContainer = () => {
             <h4>Members:</h4>
             <ul>
               {group.members.map((member) => (
-                <li key={member.uid} style={{ color: member.color }}>{member.displayName}</li>
+                <li key={member.uid} style={{ color: member.color }}>
+                  {member.displayName}
+                  <ColorPicker
+                    user={user}
+                    onChange={(color) =>
+                      handleColorChange(group.id, member.uid, color)
+                    }
+                  />
+                </li>
               ))}
             </ul>
           </div>
