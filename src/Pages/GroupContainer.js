@@ -67,9 +67,6 @@ const GroupContainer = () => {
         <div>
           <JoinGroup user={user} />
         </div>
-        <div>
-          <ColorPicker user={user} />
-        </div>
       </div>
       <div className="all-cards">
         {groups.map((group) => (
@@ -83,7 +80,9 @@ const GroupContainer = () => {
                   {member.displayName}
                   <ColorPicker
                     user={user}
-                    onChange={(color) =>
+                    memberId={member.uid} // Pass the memberId to identify the member
+                    selectedColor={member.color}
+                    onUpdateColor={(color) =>
                       handleColorChange(group.id, member.uid, color)
                     }
                   />
