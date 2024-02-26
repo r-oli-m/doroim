@@ -1,68 +1,83 @@
-// Checklist.js
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Checklist.css";
 import addBtn from "./addChecklistItem.png";
 import dropBtn from "./dropdown.png";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
-const Checklist = () => {
-  //----------------- Variables -----------------------------------------------
-  //some sample items for testing
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      text: "Item 1",
-      checked: false,
-      details: "Detail 1",
-      showDetails: false,
-    },
-    {
-      id: 2,
-      text: "Item 2",
-      checked: false,
-      details:
-        "Detail 2 some more details some more details some more details some more details some more details",
-      showDetails: false,
-    },
-    {
-      id: 3,
-      text: "Item 3",
-      checked: false,
-      details: "Detail 3",
-      showDetails: false,
-    },
-  ]);
+const Checklist = ({ userGroupColor, group, groupId, user }) => {
+  const groupMembers = group?.members || [];
 
-  const [showInput, setShowInput] = useState(false);
+
+  const firestore = getFirestore();
+  const [items, setItems] = useState([]);
   const [newItemText, setNewItemText] = useState("");
-  const [showFirstChecklist, setShowFirstChecklist] = useState(true);
+  const [showInput, setShowInput] = useState(false);
+  const [userId, setUserId] = useState(null); // Declare userId state
 
-  //----------------- Functions -----------------------------------------------
-  const handleToggle = (itemId) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, checked: !item.checked } : item
-      )
-    );
+  useEffect(() => {
+    const fetchChecklistData = async () => {
+      try {
+        const checklistDocRef = doc(firestore, "checklists", groupId);
+        const docSnapshot = await getDoc(checklistDocRef);
+        if (docSnapshot.exists()) {
+          const checklist = docSnapshot.data().items;
+          setItems(checklist);
+        } else {
+          console.log("No checklist data found.");
+        }
+      } catch (error) {
+        console.error("Error fetching checklist data: ", error);
+      }
+    };
+
+    fetchChecklistData();
+  }, [firestore, groupId]);
+
+  useEffect(() => {
+    // Extract userId from user object
+    if (user) {
+      setUserId(user.uid);
+    }
+  }, [user]);
+
+  const handleToggle = async (itemId) => {
+    try {
+      const updatedItems = items.map((item) =>
+        item.id === itemId
+          ? {
+            ...item,
+            checked: !item.checked,
+            checkedBy: item.checked ? null : userId,
+          }
+          : item
+      );
+      setItems(updatedItems);
+      const checklistDocRef = doc(firestore, "checklists", groupId);
+      await setDoc(checklistDocRef, { items: updatedItems });
+    } catch (error) {
+      console.error("Error updating checklist item: ", error);
+    }
   };
 
-  const handleAddItem = () => {
-    const trimmedNewItemText = newItemText.trim().toLowerCase();
-    const isDuplicate = items.some(
-      (item) => item.text.toLowerCase() === trimmedNewItemText
-    );
-    if (trimmedNewItemText !== "" && !isDuplicate) {
+  const handleAddItem = async () => {
+    const trimmedNewItemText = newItemText.trim();
+    if (trimmedNewItemText !== "") {
       const newItem = {
         id: items.length + 1,
-        text: newItemText,
+        text: trimmedNewItemText,
         checked: false,
+        checkedBy: null,
         details: "New Detail",
+        addedBy: userId,
       };
-      setItems([...items, newItem]);
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
+      const checklistDocRef = doc(firestore, "checklists", groupId);
+      await setDoc(checklistDocRef, { items: updatedItems });
       setNewItemText("");
       setShowInput(false);
-    } else if (isDuplicate) {
-      alert("This item already exists in the checklist.");
+    } else {
+      alert("Please enter a valid item text.");
     }
   };
 
@@ -73,132 +88,71 @@ const Checklist = () => {
       )
     );
   };
-
-  //----------------- HTML -----------------------------------------------
   return (
     <div className="checklist-page">
-      {showFirstChecklist && (
-        <div className="checklist-container">
-          <div className="checklist-title">
-            <h2>Checklist title here ? ._.</h2>
-            {/* --------------- add button --------------- */}
-            <button
-              className="add-btn"
-              onClick={() => setShowInput(true)}
-              disabled={showInput}
-            >
-              <img src={addBtn} alt="Add" height={70} width={70} />
-            </button>
-          </div>
-          {/* --------------- start of checklist --------------- */}
-          <ul>
-            {items.map((item) => (
-              <li key={item.id}>
-                {/* --------------- show item --------------- */}
-                <div className="item-and-btns">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={item.checked}
-                      onChange={() => handleToggle(item.id)}
-                    />
-                    {item.text}
-                  </label>
-                  {/* --------------- dropdown --------------- */}
-                  <div className="dropdown-btn">
-                    <button
-                      className={`dropbtn ${
-                        item.showDetails ? "dropbtn-flipped" : ""
-                      }`}
-                      onClick={() => handleDropdown(item.id)}
-                    >
-                      <img
-                        src={dropBtn}
-                        alt="Dropdown"
-                        height={30}
-                        width={30}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="dropdown-content">
-                  {item.showDetails && <p>Details: {item.details}</p>}
-                </div>
-              </li>
-            ))}
-
-            {/* --------------- adding new checklist item --------------- */}
-            {showInput && (
-              <div className="new-item">
-                <p> Adding a new item. . . </p>
-                <div className="input-item">
-                  <input
-                    type="text"
-                    value={newItemText}
-                    onChange={(e) => setNewItemText(e.target.value)}
+      <h2>Checklist</h2>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            <div className="item-and-btns">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={() => handleToggle(item.id)}
+                  style={{
+                    outline: `2px solid ${item.addedBy === userId
+                      ? userGroupColor
+                      : item.addedBy
+                        ? groupMembers.find((member) => member.uid === item.addedBy)?.color
+                        : "black"
+                      }`
+                  }}
+                />
+                {item.text}
+              </label>
+              <div className="dropdown-btn">
+                <button
+                  className={`dropbtn ${item.showDetails ? "dropbtn-flipped" : ""}`}
+                  onClick={() => handleDropdown(item.id)}
+                >
+                  <img
+                    src={dropBtn}
+                    alt="Dropdown"
+                    height={30}
+                    width={30}
                   />
-                  <button onClick={handleAddItem}>Add</button>
-                  <button onClick={() => setShowInput(false)}>Cancel</button>
-                </div>
+                </button>
               </div>
-            )}
-          </ul>
-          {/* --------------- end of checklist --------------- */}
-        </div>
-      )}
+            </div>
+            <div className="dropdown-content">
+              {item.showDetails && <p>Details: {item.details}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
 
-      {/* --------------- checklist 2  --------------------------------------------- --------------- --------------- */}
-      {!showFirstChecklist && (
-        <div className="checklist-container">
-          <div className="checklist-title">
-            <h2>Checked Items</h2>
+      {showInput && (
+        <div className="new-item">
+          <p> Adding a new item. . . </p>
+          <div className="input-item">
+            <input
+              type="text"
+              value={newItemText}
+              onChange={(e) => setNewItemText(e.target.value)}
+            />
+            <button onClick={handleAddItem}>Add</button>
+            <button onClick={() => setShowInput(false)}>Cancel</button>
           </div>
-          {/* --------------- start of checklist --------------- */}
-          <ul>
-            {items
-              .filter((item) => item.checked)
-              .map((item) => (
-                <li key={item.id}>
-                  {/* --------------- show item --------------- */}
-                  <div className="item-and-btns">
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={item.checked}
-                        onChange={() => handleToggle(item.id)}
-                      />
-                      {item.text}
-                    </label>
-                    {/* --------------- dropdown --------------- */}
-                    <div className="dropdown-btn">
-                      <button
-                        className={`dropbtn ${
-                          item.showDetails ? "dropbtn-flipped" : ""
-                        }`}
-                        onClick={() => handleDropdown(item.id)}
-                      >
-                        <img
-                          src={dropBtn}
-                          alt="Dropdown"
-                          height={30}
-                          width={30}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="dropdown-content">
-                    {item.showDetails && <p>Details: {item.details}</p>}
-                  </div>
-                </li>
-              ))}
-          </ul>
-          {/* --------------- end of checklist --------------- */}
         </div>
       )}
       <button
-        className="secondPageBtn"
-        onClick={() => setShowFirstChecklist(!showFirstChecklist)}
-      ></button>
+        className="add-btn"
+        onClick={() => setShowInput(true)}
+        disabled={showInput}
+      >
+        <img src={addBtn} alt="Add" height={70} width={70} />
+      </button>
     </div>
   );
 };

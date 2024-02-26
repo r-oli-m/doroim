@@ -5,6 +5,7 @@ import JoinGroup from "../auth/JoinGroup";
 import ColorPicker from "../ColorPicker";
 import { getFirestore, collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import "../Pages/GroupContainer.css";
+import Checklist from "../SubPages/Checklist";
 
 const GroupContainer = () => {
   const [user, setUser] = useState(null);
@@ -57,6 +58,9 @@ const GroupContainer = () => {
     }
   };
 
+  // Find the group that the user is a member of
+  const userGroup = user ? groups.find(group => group.members.some(member => member.uid === user.uid)) : null;
+
   return (
     <div className="group-container">
       <h1>Group Management</h1>
@@ -69,28 +73,35 @@ const GroupContainer = () => {
         </div>
       </div>
       <div className="all-cards">
-        {groups.map((group) => (
-          <div key={group.id} className="my-group-card">
-            <h2>Group: {group.groupName}</h2>
-            <h3>Code: {group.permissionCode}</h3>
+        {userGroup && (
+          <div key={userGroup.id} className="my-group-card">
+            <h2>Group: {userGroup.groupName}</h2>
+            <h3>Code: {userGroup.permissionCode}</h3>
             <h4>Members:</h4>
             <ul>
-              {group.members.map((member) => (
+              {userGroup.members.map((member) => (
                 <li key={member.uid} style={{ color: member.color }}>
                   {member.displayName}
                   <ColorPicker
                     user={user}
-                    memberId={member.uid} // Pass the memberId to identify the member
+                    memberId={member.uid}
                     selectedColor={member.color}
                     onUpdateColor={(color) =>
-                      handleColorChange(group.id, member.uid, color)
+                      handleColorChange(userGroup.id, member.uid, color)
                     }
                   />
                 </li>
               ))}
             </ul>
+            {/* Render Checklist for the user's group */}
+            <Checklist
+              user={user}
+              group={userGroup}
+              userGroupColor={userGroup?.members.find(member => member.uid === user?.uid)?.color}
+              groupId={userGroup?.id}
+            />
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
