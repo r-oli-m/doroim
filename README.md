@@ -1,8 +1,11 @@
-# Getting Started with Create React App
+# How to Run the Code
+1) Have node and npm installed
+2) Install the node modules for firebase and react-router-dom
+   use 'npm i firebase' and 'npm i react-router-dom'
+3) Download github repo files in the same directory as node modules
+4) use 'npm run start' to open the website locally
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## This prject was created with React.js
 
 In the project directory, you can run:
 
