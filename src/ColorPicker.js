@@ -15,7 +15,7 @@ const ColorPicker = ({ user, memberId, selectedColor, onUpdateColor }) => {
 
   return (
     <div>
-      <p style={{ color: currentColor, margin: "1vh" }}>Choose your color</p>
+      <p style={{ color: currentColor, margin: "1vh" }}>Choose color</p>
       <input
         type="color"
         value={currentColor}

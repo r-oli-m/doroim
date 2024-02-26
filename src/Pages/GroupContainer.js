@@ -68,9 +68,11 @@ const GroupContainer = () => {
   };
 
   return (
-    <>
-      <h1 className="group-container-title">Manage Your Roomate Group Here:</h1>
-      <div className="group-container">
+    <div className="group-container">
+      <div>
+        <h1 className="group-container-title">
+          Create or join a roommate group here:
+        </h1>
         <div className="options">
           <div>
             <CreateGroup user={user} />
@@ -79,33 +81,35 @@ const GroupContainer = () => {
             <JoinGroup user={user} />
           </div>
         </div>
-        <div className="all-cards">
-          <h2 className="current-groups">Your current groups:</h2>
-          {groups.map((group) => (
-            <div key={group.id} className="my-group-card">
-              <h2>Group Name: {group.groupName}</h2>
-              <h3>Code: {group.permissionCode}</h3>
-              <h3>Members:</h3>
-              <ul>
-                {group.members.map((member) => (
-                  <li key={member.uid} style={{ color: member.color }}>
-                    {member.displayName}
-                    <ColorPicker
-                      user={user}
-                      memberId={member.uid}
-                      selectedColor={member.color}
-                      onUpdateColor={(color) =>
-                        handleColorChange(group.id, member.uid, color)
-                      }
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </div>
-    </>
+      <div className="all-cards">
+        <h1 className="current-groups-title">Your current groups:</h1>
+        {groups.map((group) => (
+          <div key={group.id} className="my-group-card">
+            <h2>Group Name: {group.groupName}</h2>
+            <h3>Code: {group.permissionCode}</h3>
+            <h3>Members:</h3>
+            <ul>
+              {group.members.map((member) => (
+                <li key={member.uid}>
+                  <span style={{ fontWeight: "bold" }}>
+                    {member.displayName}
+                  </span>
+                  <ColorPicker
+                    user={user}
+                    memberId={member.uid}
+                    selectedColor={member.color}
+                    onUpdateColor={(color) =>
+                      handleColorChange(group.id, member.uid, color)
+                    }
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

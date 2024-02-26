@@ -1,10 +1,12 @@
 .group-container-title {
   margin-top: 3vh;
   margin-left: 5vh;
+  margin-bottom: -1vh;
+  width: 50vh;
 }
 
 .group-container {
-  margin: 0vh 0 0 0vh;
+  margin: 0vh 0 0 4vh;
   display: flex;
   min-height: 50vh;
 }
@@ -23,9 +25,9 @@
   padding: 2vh 3vh 5vh 3vh;
 }
 
-.current-groups {
-  margin-top: 0;
-  margin-bottom: 1vh;
+.current-groups-title {
+  margin-top: 4vh;
+  margin-bottom: 5vh;
 }
 
 .my-group-card {
