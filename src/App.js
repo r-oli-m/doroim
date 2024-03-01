@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 //pages:
-import Home from "./Pages/Home";
+import Home from "./Pages/Home"
+import Tools from "./Pages/Tools";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Navbar from "./Navbar";
@@ -32,6 +33,7 @@ const App = () => {
       <Navbar user={user} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/tools" element={<Tools />} />
         <Route path="/checklist" element={<Checklist />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/groups" element={<Contact />} user={user} />

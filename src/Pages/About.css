@@ -2,9 +2,8 @@
   margin: 0vh auto 0 auto;
   height: 90vh;
   align-self: center;
-  background-image: url(../pictures/about.png);
+  background-image: url(./pictures/about.png);
   background-size: cover;
-
   display: flex;
   justify-content: center;
   border-top: 4px groove rgba(0, 0, 0, 0.445);

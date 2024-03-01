@@ -1,100 +1,32 @@
 .home-container {
-  border-top: 4px groove rgba(0, 0, 0, 0.445);
-  border-radius: 2px;
-  margin: 0vh auto 0 auto;
-  height: 90vh;
-  align-self: center;
-  background-image: url(../pictures/navpage.png);
-  background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 80%, rgb(147, 128, 255)), url(./pictures/landing.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 90vh; /* Set the height of the container to fill the viewport */
+  position: fixed;
 }
 
-.text-box {
-  position: absolute;
-  width: 50vh;
-  height: 30vh;
-  padding: 0 3vh 0 3vh;
-  border: 2px groove black;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.616);
-  top: 15vh;
-  left: 5vh;
+.mascot-img {
+  width: 50%; /* Set the width of the mascot image container */
+  text-align: center; /* Align text horizontally */
+  margin: auto; /* Center the container horizontally */
+  display: flex; /* Use flexbox for the container */
+  align-items: center; /* Center items vertically within the container */
+  flex-direction: column; /* Arrange items vertically */
 }
 
-.dorm1 {
-  position: absolute;
-  width: 25vh;
-  height: 25vh;
-  padding: 2vh 3vh 5vh 3vh;
-  border: 2px groove black;
-  border-radius: 10px;
-  background-image: url(../pictures/dorm1.png);
-  background-size: cover;
-  background-position: center;
-  top: 15vh;
-  right: 5vh;
+.mascot-img h2,
+.mascot-img p {
+  margin: 10px; /* Add margin for spacing */
+}
+.mascot-img h2 {
+  margin-top: 5vh;
 }
 
-.dorm2 {
-  position: absolute;
-  width: 25vh;
-  height: 25vh;
-  padding: 2vh 3vh 5vh 3vh;
-  border: 2px groove black;
-  border-radius: 10px;
-  background-image: url(../pictures/dorm2.png);
-  background-size: cover;
-  background-position: center;
-  top: 50vh;
-  right: 5vh;
-}
-
-.dorm3 {
-  position: absolute;
-  width: 25vh;
-  height: 25vh;
-  padding: 2vh 3vh 5vh 3vh;
-  border: 2px groove black;
-  border-radius: 10px;
-  background-image: url(../pictures/dorm3.png);
-  background-size: cover;
-  background-position: center;
-  top: 15vh;
-  right: 40vh;
-}
-
-.text-box p {
-  font-size: 30px;
-  font-weight: bolder;
-  margin-bottom: 0vh;
-}
-
-.text-box ul {
-  font-size: 20px;
-  list-style: circle;
-  margin-left: 5vh;
-}
-
-.box-image {
-  margin: 20vh 0 0 30vh;
-}
-
-.checklist-image {
-  margin: -30vh 0 0 0;
-}
-
-
-.box-image,
-.checklist-image {
-  width: 400px;
-  height: auto;
-  transition: transform 0.3s ease-in;
-  cursor: pointer;
-}
-
-.box-image:hover {
-  transform: translateY(-5vh) scale(1.1);
-}
-
-.checklist-image:hover {
-  transform: translateY(-5vh) scale(1.1) rotate(-10deg);
+.mascot-img img {
+  max-width: 100%; /* Ensure the image does not exceed the container's width */
+  max-height: 100%; /* Ensure the image does not exceed the container's height */
 }

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import LoginSignUp from "./auth/LoginSignUp.js";
 //images:
-import doroLogo from "./pictures/doro_logo.png";
-import userIcon from "./pictures/userIcon.png";
+import doroLogo from "./Pages/pictures/doro_logo.png";
+import userIcon from "./Pages/pictures/userIcon.png";
 
 const Navbar = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,18 +51,25 @@ const Navbar = ({ user }) => {
   return (
     <div className="Navbar">
       <div className="title">
-        <img src={doroLogo} width="350vh" alt="Logo" />
+        <Link to="/">
+          DoroIM
+        </Link>
       </div>
 
       <div className="right">
+        <div>
+          <Link className="link" to="/">
+            home
+          </Link>
+        </div>
         <div
           className="Dropdown"
           onMouseEnter={handleDropdownToggle}
           onMouseLeave={handleDropdownToggle}
         >
           <div>
-            <Link to="/" className="link">
-              home
+            <Link to="/tools" className="link">
+              tools
             </Link>
           </div>
           {isDropdownOpen && (

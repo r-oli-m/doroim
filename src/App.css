@@ -2,5 +2,15 @@
   margin: 0px;
 }
 body {
-  margin: 0;
+  border-bottom: black;
+  border-radius: 2px;
+  margin: 10vh 0 0 0; /* Adjust the margin to 10vh on all sides */
+  height: 90vh;
+  align-self: center;
+  background-size: 100% 100%;
+  background-image: url(./Pages/pictures/bg.png);
+  background-position: center; 
+  background-repeat: no-repeat;
 }
+
+

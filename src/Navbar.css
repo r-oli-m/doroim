@@ -1,4 +1,12 @@
-/* Navbar.css */
+@keyframes underline {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 .Navbar {
   display: flex;
   justify-content: space-between;
@@ -6,10 +14,14 @@
   font-weight: bolder;
   font-size: 25px;
   text-decoration: none;
-  color: black;
+  border-bottom: 4px solid #9485df;
   padding: 2vh 2vh 5vh 2vh;
   height: 3vh;
-  background-color: transparent;
+  background-color: #b3a7ed;
+  position: fixed;
+  width: 100%; /* Extends the navbar to the full width of the screen */
+  top: 0;
+  z-index: 1000;
 }
 
 .title {
@@ -17,6 +29,20 @@
   align-items: center;
   margin-top: 2vh;
   margin-left: 4vh;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.title a {
+  color: inherit; /* Use the default text color */
+  text-decoration: none; /* Remove underline */
+}
+
+
+.title h4 {
+  font-size: 45px; /* Increase the font size */
+  font-weight: bolder; /* Apply bold font weight */
+  color: #333; /* Adjust the color to make it more impactful */
 }
 
 .right {
@@ -30,11 +56,25 @@
   text-decoration: none;
   color: black;
   border-radius: 5px;
+  position: relative; /* Add position relative for the underline animation */
 }
 
-.link:hover {
-  background-color: #ccc;
+/* Add hover effect with animation */
+.right a:hover {
+  background-color: rgba(202, 193, 244, 0.6); /* Adjust the alpha value (0.8 for 80% opacity) */
   cursor: pointer;
+  color: #4a38a6;
+}
+
+.right a:hover::after {
+  content: ""; /* Add pseudo-element for the underline */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px; /* Set the height of the underline */
+  width: 100%;
+  background-color: black;
+  animation: underline 0.5s ease-in-out; /* Apply animation */
 }
 
 .Dropdown {
@@ -53,7 +93,7 @@
   margin-top: 2vh;
   border-radius: 5px;
   right: 0;
-  background-color: white;
+  background-color: #b3a7ed;
   z-index: 2;
 }
 
