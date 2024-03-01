@@ -12,7 +12,7 @@
   position: absolute;
   width: 50vh;
   height: 30vh;
-  padding: 2vh 3vh 5vh 3vh;
+  padding: 0 3vh 0 3vh;
   border: 2px groove black;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.616);
@@ -69,18 +69,19 @@
 }
 
 .text-box ul {
-  font-size: 25px;
+  font-size: 20px;
   list-style: circle;
   margin-left: 5vh;
 }
 
 .box-image {
-  margin: 20vh 0 0 60vh;
+  margin: 20vh 0 0 30vh;
 }
 
 .checklist-image {
-  margin: -30vh 0 0 40vh;
+  margin: -30vh 0 0 0;
 }
+
 
 .box-image,
 .checklist-image {

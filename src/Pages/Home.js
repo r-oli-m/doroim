@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
-import box from "../pictures/boxnav.png";
-import list from "../pictures/notepadnav.png";
+import box1 from "../pictures/boxClosed.png";
+import box2 from "../pictures/boxOpen.png";
+import notepad1 from "../pictures/notepad.png"
+import notepad2 from "../pictures/notepadScatter.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [isBoxOpen, setIsBoxOpen] = useState(false);
+  const [isPadOpen, setIsPadOpen] = useState(false);
+
+
   return (
     <div className="home-container">
       <div className="text-box">
@@ -22,20 +28,26 @@ const Home = () => {
         <div className="box">
           <Link to="/inventory">
             <img
-              src={box}
+              src={isBoxOpen ? box2 : box1} // Toggle between box1 and box2 based on isBoxOpen state
               alt="Box"
               className="box-image"
               title="go to inventory"
+              onMouseEnter={() => setIsBoxOpen(true)}
+              onMouseLeave={() => setIsBoxOpen(false)}
             />
           </Link>
         </div>
         <div className="checklist">
-          <img
-            src={list}
-            alt="Checklist"
-            className="checklist-image"
-            title="go to checklist"
-          />
+          <Link to="/checklist">
+            <img
+              src={isPadOpen ? notepad2 : notepad1} // Toggle between box1 and box2 based on isBoxOpen state
+              alt="Notepad"
+              className="checklist-image"
+              title="go to checklist"
+              onMouseEnter={() => setIsPadOpen(true)}
+              onMouseLeave={() => setIsPadOpen(false)}
+            />
+          </Link>
         </div>
       </div>
     </div>
