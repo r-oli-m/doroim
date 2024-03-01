@@ -1,6 +1,8 @@
 .tools-container {
     height: 150vh; 
+    background-image: url(./pictures/navpage.png);
     position: relative;
+    background-repeat: no-repeat;
   }
   
   
@@ -8,11 +10,11 @@
     position: absolute;
     width: 50vh;
     height: 30vh;
-    padding: 0 3vh 0 3vh;
+    padding: 0 1vh 0 1vh;
     border: 2px groove black;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.616);
-    top: 15vh;
+    top: 5vh;
     left: 5vh;
   }
   
@@ -71,11 +73,15 @@
   }
   
   .box-image {
-    margin: 20vh 0 0 30vh;
+    scale: 2;
+    margin-left: 90vh; /*box moves horiz*/
+    margin-bottom: -40vh; /*checklist moves vert*/
   }
   
   .checklist-image {
-    margin: -30vh 0 0 0;
+    scale: 2;
+    margin-left: 55vh; 
+    margin-top: 50vh; 
   }
   
   
@@ -85,6 +91,7 @@
     height: auto;
     transition: transform 0.3s ease-in;
     cursor: pointer;
+
   }
   
   .box-image:hover {

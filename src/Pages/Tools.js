@@ -23,7 +23,7 @@ const Tools = () => {
       </div>
       <div className="dorm1"></div>
       <div className="dorm2"></div>
-      <div className="dorm3"></div>
+      {/* <div className="dorm3"></div> */}
       <div className="table-container">
         <div className="box">
           <Link to="/inventory">
